@@ -1,18 +1,50 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 #logo {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: block;
+}
+
+.info-display {
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: 1px solid #ced4da; /* Couleur de bordure similaire à celle des inputs Bootstrap */
+    background-color: #f8f9fa; /* Fond légèrement gris pour imiter bg-light */
+    border-radius: 10px; /* Rayon de bordure appliqué au conteneur extérieur */
+    overflow: hidden; /* Masque les débordements, y compris la barre de défilement, du conteneur intérieur */
+    height: 288px; /* Hauteur fixe pour l'affichage des infos */
+  }
+  
+  .info-display-inner {
+    height: 100%; /* Assurez-vous que le conteneur intérieur remplit le parent en hauteur */
+    overflow-y: auto; /* Applique le défilement au conteneur intérieur */
+    border-radius: 10px; /* Appliquez également border-radius au conteneur intérieur pour maintenir la cohérence */
+    color: black;
+  }
+  
+
+
+.info-line {
+  padding: 0.25rem 0.5rem; /* Petit padding pour chaque ligne */
+  background-color: #ffffff; /* Fond blanc pour chaque ligne d'info */
+  border-bottom: 1px solid #eeeeee; /* Ligne de séparation optionnelle */
+  margin-bottom: 0.25rem; /* Espace entre les lignes */
+}
+
+/* Supprimer la bordure du dernier élément pour un look propre */
+.info-line:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
 }

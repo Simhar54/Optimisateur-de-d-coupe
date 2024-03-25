@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optimisateur de découpe</title>
-    <link rel="stylesheet" href="assets/CSS/style.css">
     <link rel="stylesheet" href="assets/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/CSS/style.css">
 </head>
 
 <body>
@@ -35,15 +35,15 @@
                 <div class="row col-md-6 m-3 d-flex justify-content-center">
                     <h2 class="text-center mt-3">Information général</h2>
                     <div class="col-md-4 mt-2">
-                        <label for="nom">Chute de barre</label>
-                        <input type="text" class="form-control mt-1" id="barDrop" name="barDrop" required>
+                        <label for="barDrop">Chute de barre</label>
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <label for="nom">Taille de la lame de scie</label>
-                        <input type="text" class="form-control mt-1" id="sawBladeSize" name="sawBladeSize" required>
+                        <label for="sawBladeSize">Taille de la lame de scie</label>
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -53,28 +53,113 @@
                     <!-- Inputs Row -->
 
                     <div class="row">
-                        <h2 class="text-center mt-3">Information de découpe</h2>
-                        <div class="col-md-6 mb-3">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Longueur à couper">
-                                <input type="text" class="form-control" placeholder="OF">
-                                <button class="btn btn-primary">Ajouter</button>
+                        <h2 class="text-center my-3">Information de découpe</h2>
+                        <div class="col-md-6 my-3">
+                            <div class="input-group has-validation mb-3 row">
+                                <div class="col col-10 col-md-6">
+                                    <label for="cutLength" class="form-label">Longueur de coupe</label>
+                                    <input type="text" class="form-control bg-light text-dark" name="cutLength" id="cutLength" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col col-10 col-md-6">
+                                    <label for="of" class="form-label">OF</label>
+                                    <input type="text" class="form-control bg-light text-dark" name="of" id="of" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary mt-2" id="addCutLength">Ajouter</button>
+                                </div>
                             </div>
+
                             <!-- Placeholder for Liste de découpe avec l'OF -->
-                            <div class="p-3 border bg-light">Liste de découpe avec l'OF</div>
+                            <div class="info-display">
+                                <div class="info-display-inner">
+                                    <!-- Les éléments ajoutés seront insérés ici -->
+                                    <div class="info-line">Ligne d'information 1</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 3</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
 
+                                    <!-- Ajoutez plus selon les entrées -->
 
+                                </div>
+
+                            </div>
                         </div>
 
 
 
-                        <div class="col-md-6 mb-3">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Barre a couper">
-                                <button class="btn btn-primary">Ajouter</button>
+                        <div class="col-md-6 my-3">
+                            <div class="input-group has-validation mb-3">
+                                <div class="w-100 mb-2">
+                                    <label for="barLength" class="form-label">Barre à couper</label>
+                                    <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary" id="addBarLength">Ajouter</button>
+                                </div>
                             </div>
+
+
                             <!-- Placeholder for Liste de barre à couper -->
-                            <div class="p-3 border bg-light">Liste de barre à couper</div>
+                            <div class="info-display">
+                                <div class="info-display-inner">
+                                    <!-- Les éléments ajoutés seront insérés ici -->
+                                    <div class="info-line">Ligne d'information 1</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 3</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+                                    <div class="info-line">Ligne d'information 2</div>
+
+                                    <!-- Ajoutez plus selon les entrées -->
+
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>

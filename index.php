@@ -36,16 +36,16 @@
                     <h2 class="text-center mt-3">Information général</h2>
                     <div class="col-md-4 mt-2">
                         <label for="barDrop">Chute de barre</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" required>
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" >
                         <div class="valid-feedback">
-                            Looks good!
+                            Validé!
                         </div>
                     </div>
                     <div class="col-md-4 mt-2">
                         <label for="sawBladeSize">Taille de la lame de scie</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" required>
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" >
                         <div class="valid-feedback">
-                            Looks good!
+                        Validé!
                         </div>
                     </div>
 
@@ -58,16 +58,16 @@
                             <div class="input-group has-validation mb-3 row">
                                 <div class="col col-10 col-md-6">
                                     <label for="cutLength" class="form-label">Longueur de coupe</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="cutLength" id="cutLength" required>
+                                    <input type="text" class="form-control bg-light text-dark" name="cutLength" id="cutLength">
                                     <div class="valid-feedback">
-                                        Looks good!
+                                        Validé!
                                     </div>
                                 </div>
                                 <div class="col col-10 col-md-6">
                                     <label for="of" class="form-label">OF</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="of" id="of" required>
+                                    <input type="text" class="form-control bg-light text-dark" name="of" id="of" >
                                     <div class="valid-feedback">
-                                        Looks good!
+                                        Validé!
                                     </div>
                                 </div>
                                 <div>
@@ -79,29 +79,7 @@
                             <div class="info-display">
                                 <div class="info-display-inner">
                                     <!-- Les éléments ajoutés seront insérés ici -->
-                                    <div class="info-line">Ligne d'information 1</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 3</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
+                                  
 
                                     <!-- Ajoutez plus selon les entrées -->
 
@@ -116,7 +94,7 @@
                             <div class="input-group has-validation mb-3">
                                 <div class="w-100 mb-2">
                                     <label for="barLength" class="form-label">Barre à couper</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" required>
+                                    <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" >
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -131,29 +109,7 @@
                             <div class="info-display">
                                 <div class="info-display-inner">
                                     <!-- Les éléments ajoutés seront insérés ici -->
-                                    <div class="info-line">Ligne d'information 1</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 3</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
-                                    <div class="info-line">Ligne d'information 2</div>
+                                 
 
                                     <!-- Ajoutez plus selon les entrées -->
 
@@ -195,6 +151,7 @@
 
     <script src="assets/JS/mainscript.js"></script>
     <script src="assets/JS/bootstrap.bundle.min.js"></script>
+    <script src="assets/JS/validationform.js"></script>
 </body>
 
 </html>

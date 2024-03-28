@@ -38,16 +38,16 @@
                     <h2 class="text-center mt-3">Information général</h2>
                     <div class="col-md-4 mt-2">
                         <label for="barDrop">Chute de barre</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" >
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" autocomplete="off">
                         <div class="valid-feedback">
                             Validé!
                         </div>
                     </div>
                     <div class="col-md-4 mt-2">
                         <label for="sawBladeSize">Taille de la lame de scie</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" >
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" autocomplete="off">
                         <div class="valid-feedback">
-                        Validé!
+                            Validé!
                         </div>
                     </div>
 
@@ -58,14 +58,14 @@
                             <div class="input-group has-validation mb-3 row">
                                 <div class="col col-10 col-md-6">
                                     <label for="cutLength" class="form-label">Longueur de coupe</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="cutLength" id="cutLength">
+                                    <input type="text" class="form-control bg-light text-dark" name="cutLength" id="cutLength" autocomplete="off">
                                     <div class="valid-feedback">
                                         Validé!
                                     </div>
                                 </div>
                                 <div class="col col-10 col-md-6">
                                     <label for="of" class="form-label">OF</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="of" id="of" >
+                                    <input type="text" class="form-control bg-light text-dark" name="of" id="of" autocomplete="off">
                                     <div class="valid-feedback">
                                         Validé!
                                     </div>
@@ -76,32 +76,39 @@
                             </div>
                             <!-- Placeholder for Liste de découpe avec l'OF -->
                             <div class="info-display">
-                                <div class="info-display-inner">
+                                <div class="info-display-inner" id="cutLengthDisplay">
                                     <!-- Les éléments ajoutés seront insérés ici -->
-                                
+
                                 </div>
 
                             </div>
                         </div>
 
                         <div class="col-md-6 my-3">
-                            <div class="input-group has-validation mb-3">
-                                <div class="w-100 mb-2">
+                            <div class="input-group has-validation mb-3 row">
+                                <div class="col col-10 col-md-7">
                                     <label for="barLength" class="form-label">Barre à couper</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" >
+                                    <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" autocomplete="off">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col col-3">
+                                    <label for="qte" class="form-label">Qté</label>
+                                    <input type="text" class="form-control bg-light text-dark" name="qte" id="qte" autocomplete="off">
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary" id="addBarLength"0 type="button">Ajouter</button>
+                                    <button class="btn btn-primary mt-2" id="addBarLength" 0 type="button">Ajouter</button>
                                 </div>
                             </div>
                             <!-- Placeholder for Liste de barre à couper -->
                             <div class="info-display">
                                 <div class="info-display-inner">
                                     <!-- Les éléments ajoutés seront insérés ici -->
-                                 
+
                                 </div>
 
                             </div>
@@ -116,10 +123,14 @@
                         </div>
                     </div>
                 </div>
-
             </section>
-
         </form>
+
+        <!-- Menu contextuel -->
+        <div id="contextMenu" class="context-menu" style="display: none;">
+            <div class="context-menu-item" id="editItem">Modifier</div>
+            <div class="context-menu-item" id="deleteItem">Supprimer</div>
+        </div>
 
     </main>
 
@@ -127,9 +138,8 @@
 
 
 
-    <script src="assets/JS/mainscript.js"></script>
+    <script type="module" src="assets/JS/mainscript.js"></script>
     <script src="assets/JS/bootstrap.bundle.min.js"></script>
-    <script src="assets/JS/validationform.js"></script>
 </body>
 
 </html>

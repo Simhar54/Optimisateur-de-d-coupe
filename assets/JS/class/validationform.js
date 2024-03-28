@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
   constructor() {
     this.errors = [];
   }
@@ -63,6 +63,7 @@ class FormValidator {
     switch (input.name) {
       case "cutLength":
       case "barLength":
+      case "qte":
         isValid = this.validateNumeric(input);
         break;
       case "of":
@@ -92,49 +93,3 @@ class FormValidator {
   }
 }
 
-const validator = new FormValidator();
-
-// Gestion de l'ajout pour cutLength et of
-document
-  .getElementById("addCutLength")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    const cutLengthInput = document.getElementById("cutLength");
-    const ofInput = document.getElementById("of");
-
-    if (
-      validator.validateAddAction(cutLengthInput) &&
-      validator.validateAddAction(ofInput)
-    ) {
-      // Logique d'ajout à la liste
-      console.log("Ajout réussi.");
-    }
-  });
-
-// Gestion de l'ajout pour barLength
-document
-  .getElementById("addBarLength")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    const barLengthInput = document.getElementById("barLength");
-
-    if (validator.validateAddAction(barLengthInput)) {
-      // Logique d'ajout à la liste
-      console.log("Ajout réussi.");
-    }
-  });
-
-// Validation lors de l'optimisation
-document
-  .getElementById("optimizeButton")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    const barDropInput = document.getElementById("barDrop");
-    const sawBladeSizeInput = document.getElementById("sawBladeSize");
-
-    if (validator.validateOptimizeAction([barDropInput, sawBladeSizeInput])) {
-      // Tous les champs sont valides
-      console.log("Optimisation réussie.");
-      // Soumettez ici ou effectuez la logique d'optimisation
-    }
-  });

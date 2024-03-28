@@ -48,3 +48,42 @@ body {
   border-bottom: none;
   margin-bottom: 0;
 }
+
+.cut-length-entry {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: black;
+  }
+  
+  .cut-length, .cut-of {
+    flex: 1;
+  }
+  
+  .selected {
+    background-color: #343a40; /* Bootstrap 'dark' */
+    color: #f8f9fa; /* Bootstrap 'light' */
+  }
+
+/* menu contextuel */
+  .context-menu {
+    position: absolute;
+    z-index: 1000;
+    width: 120px;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px #aaa;
+    color: black;
+  }
+  
+  .context-menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .context-menu-item:hover {
+    background-color: #f5f5f5;
+  }
+  

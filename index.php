@@ -7,6 +7,8 @@
     <title>Optimisateur de découpe</title>
     <link rel="stylesheet" href="assets/CSS/bootstrap.min.css">
     <link rel="stylesheet" href="assets/CSS/style.css">
+    <!-- favicon -->
+    <link rel="icon" href="assets/Image/logo-optimisateur-de-decoupe.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -125,7 +127,7 @@
                     <!-- Optimize Button Row -->
                     <div class="row">
                         <div class="col text-center">
-                            <button class="btn btn-success btn-lg">Optimiser</button>
+                            <button class="btn btn-success btn-lg" id="optimizeButton">Optimiser</button>
                         </div>
                     </div>
                 </div>

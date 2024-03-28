@@ -3,7 +3,6 @@ class FormValidator {
     this.errors = [];
   }
 
-  // Vérifie si le champ contient uniquement des chiffres
   validateNumeric(input) {
     if (/^\d+$/.test(input.value)) {
       this._setValid(input);
@@ -14,7 +13,6 @@ class FormValidator {
     }
   }
 
-  // Vérifie si le champ OF contient des chiffres et des lettres
   validateAlphanumeric(input) {
     if (/^[a-zA-Z0-9]+$/.test(input.value)) {
       this._setValid(input);
@@ -28,69 +26,111 @@ class FormValidator {
     }
   }
 
-  // Applique le style et le message pour un champ valide
   _setValid(input) {
     input.classList.remove("is-invalid");
     input.classList.add("is-valid");
-    if (input.nextElementSibling.classList.contains("invalid-feedback")) {
-      input.nextElementSibling.textContent = "";
+    const feedbackElement = input.nextElementSibling;
+    if (
+      feedbackElement &&
+      feedbackElement.classList.contains("invalid-feedback")
+    ) {
+      feedbackElement.textContent = ""; // Efface le message d'erreur précédent
     }
   }
 
-  // Applique le style et le message pour un champ invalide
   _setInvalid(input, message) {
-    input.classList.remove("is-valid");
     input.classList.add("is-invalid");
-    if (input.nextElementSibling.classList.contains("invalid-feedback")) {
-      input.nextElementSibling.textContent = message;
-    } else {
-      const feedback = document.createElement("div");
-      feedback.classList.add("invalid-feedback");
-      feedback.textContent = message;
-      input.parentNode.insertBefore(feedback, input.nextSibling);
+    input.classList.remove("is-valid");
+    let feedbackElement = input.nextElementSibling;
+
+    // Si l'élément suivant n'est pas un message d'erreur, on le crée
+    if (
+      !feedbackElement ||
+      !feedbackElement.classList.contains("invalid-feedback")
+    ) {
+      feedbackElement = document.createElement("div");
+      feedbackElement.classList.add("invalid-feedback");
+      input.parentNode.insertBefore(feedbackElement, input.nextSibling);
     }
+
+    // Met à jour ou ajoute le message d'erreur
+    feedbackElement.textContent = message;
   }
 
-  // Valide tout le formulaire
-  validateForm(form) {
-    let isValid = true;
-    const inputs = form.querySelectorAll("input");
+  // Valide les champs pour l'action d'ajout
+  validateAddAction(input) {
+    let isValid = false;
+    switch (input.name) {
+      case "cutLength":
+      case "barLength":
+        isValid = this.validateNumeric(input);
+        break;
+      case "of":
+        isValid = this.validateAlphanumeric(input);
+        break;
+      default:
+        console.error("Validation non définie pour le champ:", input.name);
+    }
+    return isValid;
+  }
 
+  // Valide les champs pour l'action d'optimisation
+  validateOptimizeAction(inputs) {
+    let isValid = true;
     inputs.forEach((input) => {
       switch (input.name) {
         case "barDrop":
         case "sawBladeSize":
-        case "cutLength":
-        case "barLength":
           if (!this.validateNumeric(input)) isValid = false;
           break;
-        case "of":
-          if (!this.validateAlphanumeric(input)) isValid = false;
-          break;
+        // Pas besoin de valider 'of' ici si cela n'est fait que lors de l'ajout
         default:
           console.error("Validation non définie pour le champ:", input.name);
       }
     });
-
     return isValid;
   }
 }
 
+const validator = new FormValidator();
 
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
-    const validator = new FormValidator();
-  
-    form.addEventListener("submit", event => {
-      event.preventDefault(); // Empêche la soumission du formulaire
-  
-      // Valide le formulaire
-      if (validator.validateForm(form)) {
-        console.log("Formulaire valide, prêt à être soumis.");
-        // Soumettez le formulaire ici ou effectuez une action suivante
-      } else {
-        console.log("Le formulaire contient des erreurs.");
-      }
-    });
+// Gestion de l'ajout pour cutLength et of
+document
+  .getElementById("addCutLength")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    const cutLengthInput = document.getElementById("cutLength");
+    const ofInput = document.getElementById("of");
+
+    if (
+      validator.validateAddAction(cutLengthInput) &&
+      validator.validateAddAction(ofInput)
+    ) {
+      // Logique d'ajout à la liste
+      console.log("Ajout réussi.");
+    }
   });
-  
+
+// Gestion de l'ajout pour barLength
+document.getElementById("addBarLength").addEventListener("click", function () {
+  const barLengthInput = document.getElementById("barLength");
+
+  if (validator.validateAddAction(barLengthInput)) {
+    // Logique d'ajout à la liste
+    console.log("Ajout réussi.");
+  }
+});
+
+// Validation lors de l'optimisation
+document
+  .getElementById("optimizeButton")
+  .addEventListener("click", function () {
+    const barDropInput = document.getElementById("barDrop");
+    const sawBladeSizeInput = document.getElementById("sawBladeSize");
+
+    if (validator.validateOptimizeAction([barDropInput, sawBladeSizeInput])) {
+      // Tous les champs sont valides
+      console.log("Optimisation réussie.");
+      // Soumettez ici ou effectuez la logique d'optimisation
+    }
+  });

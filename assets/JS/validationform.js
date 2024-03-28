@@ -112,19 +112,23 @@ document
   });
 
 // Gestion de l'ajout pour barLength
-document.getElementById("addBarLength").addEventListener("click", function () {
-  const barLengthInput = document.getElementById("barLength");
+document
+  .getElementById("addBarLength")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    const barLengthInput = document.getElementById("barLength");
 
-  if (validator.validateAddAction(barLengthInput)) {
-    // Logique d'ajout à la liste
-    console.log("Ajout réussi.");
-  }
-});
+    if (validator.validateAddAction(barLengthInput)) {
+      // Logique d'ajout à la liste
+      console.log("Ajout réussi.");
+    }
+  });
 
 // Validation lors de l'optimisation
 document
   .getElementById("optimizeButton")
-  .addEventListener("click", function () {
+  .addEventListener("click", function (event) {
+    event.preventDefault();
     const barDropInput = document.getElementById("barDrop");
     const sawBladeSizeInput = document.getElementById("sawBladeSize");
 

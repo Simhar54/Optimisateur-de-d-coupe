@@ -51,9 +51,7 @@
                         </div>
                     </div>
 
-
                     <!-- Inputs Row -->
-
                     <div class="row">
                         <h2 class="text-center my-3">Information de découpe</h2>
                         <div class="col-md-6 my-3">
@@ -73,24 +71,18 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary mt-2" id="addCutLength">Ajouter</button>
+                                    <button class="btn btn-primary mt-2" id="addCutLength" type="button">Ajouter</button>
                                 </div>
                             </div>
-
                             <!-- Placeholder for Liste de découpe avec l'OF -->
                             <div class="info-display">
                                 <div class="info-display-inner">
                                     <!-- Les éléments ajoutés seront insérés ici -->
-                                  
-
-                                    <!-- Ajoutez plus selon les entrées -->
-
+                                
                                 </div>
 
                             </div>
                         </div>
-
-
 
                         <div class="col-md-6 my-3">
                             <div class="input-group has-validation mb-3">
@@ -102,19 +94,14 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary" id="addBarLength">Ajouter</button>
+                                    <button class="btn btn-primary" id="addBarLength"0 type="button">Ajouter</button>
                                 </div>
                             </div>
-
-
                             <!-- Placeholder for Liste de barre à couper -->
                             <div class="info-display">
                                 <div class="info-display-inner">
                                     <!-- Les éléments ajoutés seront insérés ici -->
                                  
-
-                                    <!-- Ajoutez plus selon les entrées -->
-
                                 </div>
 
                             </div>
@@ -122,28 +109,17 @@
 
                     </div>
 
-
-
                     <!-- Optimize Button Row -->
                     <div class="row">
                         <div class="col text-center">
-                            <button class="btn btn-success btn-lg" id="optimizeButton">Optimiser</button>
+                            <button class="btn btn-success btn-lg" id="optimizeButton" type="button">Optimiser</button>
                         </div>
                     </div>
                 </div>
 
-
-
-
-
             </section>
 
-
-
-
         </form>
-
-
 
     </main>
 

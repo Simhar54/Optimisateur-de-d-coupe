@@ -17,7 +17,7 @@ export class CutLengthManager {
 
   // Méthode privée pour mettre à jour l'affichage des longueurs et OFs ajoutés
   _updateDisplay() {
-    const displayElement = document.querySelector(".info-display"); // Assurez-vous que cet élément existe
+    const displayElement = document.querySelector("#cutLengthDisplay"); // Assurez-vous que cet élément existe
     displayElement.innerHTML = ""; // Réinitialiser l'affichage
 
     this.cutLengths.forEach((entry, index) => {
@@ -51,6 +51,17 @@ export class CutLengthManager {
 
       entryDiv.addEventListener("contextmenu", (event) => {
         event.preventDefault(); // Empêche le menu contextuel du navigateur
+
+        // Sélectionne l'entrée avant d'afficher le menu contextuel
+        document
+          .querySelectorAll(".cut-length-entry.selected")
+          .forEach((selected) => {
+            if (selected !== event.currentTarget) {
+              selected.classList.remove("selected"); // Désélectionne les autres entrées
+            }
+          });
+        event.currentTarget.classList.add("selected"); // Sélectionne l'entrée actuelle
+
         this._showContextMenu(event.pageX, event.pageY, index);
       });
 

@@ -70,7 +70,7 @@ export class CutLengthManager {
   }
 
   _showContextMenu(x, y, index) {
-    const contextMenu = document.getElementById("contextMenu");
+    const contextMenu = document.getElementById("contextMenuCut");
     contextMenu.style.top = `${y}px`;
     contextMenu.style.left = `${x}px`;
     contextMenu.style.display = "block";
@@ -80,8 +80,8 @@ export class CutLengthManager {
   }
 
   _setupContextMenuEventListeners() {
-    const editItem = document.getElementById("editItem");
-    const deleteItem = document.getElementById("deleteItem");
+    const editItem = document.getElementById("editItemCut");
+    const deleteItem = document.getElementById("deleteItemCut");
 
     editItem.addEventListener("click", () => {
       // Récupère l'entrée sélectionnée et ses détails
@@ -122,21 +122,21 @@ export class CutLengthManager {
       entryDiv.appendChild(saveButton);
 
       // Cacher le menu
-      document.getElementById("contextMenu").style.display = "none";
+      document.getElementById("contextMenuCut").style.display = "none";
     });
 
     deleteItem.addEventListener("click", () => {
       // Supprimer l'élément du tableau
       this.cutLengths.splice(this.currentlySelectedIndex, 1);
       this._updateDisplay();
-      document.getElementById("contextMenu").style.display = "none";
+      document.getElementById("contextMenuCut").style.display = "none";
       console.log(this.cutLengths);
     });
 
     // Cacher le menu contextuel lors d'un clic en dehors de celui-ci
     document.addEventListener("click", (event) => {
       if (!event.target.matches(".context-menu, .context-menu *")) {
-        document.getElementById("contextMenu").style.display = "none";
+        document.getElementById("contextMenuCut").style.display = "none";
       }
     });
   }

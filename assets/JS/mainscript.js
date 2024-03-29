@@ -1,28 +1,17 @@
-import { FormValidator } from './class/validationform.js';
-import { CutLengthManager } from './class/cutLengthManager.js';
-import { FormInteractionManager } from './class/formInteractionManager.js';
+import { FormValidator } from "./class/validationform.js";
+import { CutLengthManager } from "./class/cutLengthManager.js";
+import { BarLengthManager } from "./class/barLengthManager.js";
+import { FormInteractionManager } from "./class/formInteractionManager.js";
 
 const validator = new FormValidator();
 const cutLengthManager = new CutLengthManager();
+const barLengthManager = new BarLengthManager();
 
-const formInteractionManager = new FormInteractionManager(validator, cutLengthManager);
-
-// Gestion de l'ajout pour barLength
-document
-  .getElementById("addBarLength")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    const barLengthInput = document.getElementById("barLength");
-    const qte = document.getElementById("qte");
-
-    if (
-      validator.validateAddAction(barLengthInput) &&
-      validator.validateNumeric(qte)
-    ) {
-      // Logique d'ajout à la liste
-      console.log("Ajout réussi.");
-    }
-  });
+const formInteractionManager = new FormInteractionManager(
+  validator,
+  cutLengthManager,
+  barLengthManager
+);
 
 // Validation lors de l'optimisation
 document

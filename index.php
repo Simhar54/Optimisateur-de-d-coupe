@@ -106,7 +106,7 @@
                             </div>
                             <!-- Placeholder for Liste de barre à couper -->
                             <div class="info-display">
-                                <div class="info-display-inner">
+                                <div class="info-display-inner" id="barrLenghtDisplay">
                                     <!-- Les éléments ajoutés seront insérés ici -->
 
                                 </div>
@@ -127,9 +127,13 @@
         </form>
 
         <!-- Menu contextuel -->
-        <div id="contextMenu" class="context-menu" style="display: none;">
-            <div class="context-menu-item" id="editItem">Modifier</div>
-            <div class="context-menu-item" id="deleteItem">Supprimer</div>
+        <div id="contextMenuCut" class="context-menu" style="display: none;">
+            <div class="context-menu-item" id="editItemCut">Modifier</div>
+            <div class="context-menu-item" id="deleteItemCut">Supprimer</div>
+        </div>
+        <div id="contextMenuBar" class="context-menu" style="display: none;">
+            <div class="context-menu-item" id="editItemBar">Modifier</div>
+            <div class="context-menu-item" id="deleteItemBar">Supprimer</div>
         </div>
 
     </main>

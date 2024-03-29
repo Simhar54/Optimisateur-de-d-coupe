@@ -84,46 +84,54 @@ export class CutLengthManager {
     const deleteItem = document.getElementById("deleteItemCut");
 
     editItem.addEventListener("click", () => {
-      // Récupère l'entrée sélectionnée et ses détails
-      const entryDiv =
-        document.querySelectorAll(".cut-length-entry")[
-          this.currentlySelectedIndex
-        ];
-      const entry = this.cutLengths[this.currentlySelectedIndex];
-
-      // Crée des champs d'entrée pour la modification
-      const lengthInput = document.createElement("input");
-      lengthInput.type = "text";
-      lengthInput.value = entry.cutLength;
-      lengthInput.classList.add("edit-length"); // Ajoutez des classes CSS si nécessaire
-
-      const ofInput = document.createElement("input");
-      ofInput.type = "text";
-      ofInput.value = entry.of;
-      ofInput.classList.add("edit-of"); // Ajoutez des classes CSS si nécessaire
-
-      // Vide le contenu de l'entrée et y ajoute les champs d'entrée
-      entryDiv.innerHTML = "";
-      entryDiv.appendChild(lengthInput);
-      entryDiv.appendChild(ofInput);
-
-      lengthInput.focus(); // Met le focus sur le champ de longueur pour la modification immédiate
-
-      // Optionnel: Ajoutez un bouton de sauvegarde ou utilisez un événement pour enregistrer la modification
-      const saveButton = document.createElement("button");
-      saveButton.textContent = "Sauvegarder";
-      saveButton.addEventListener("click", () => {
-        this._saveEdit(
-          this.currentlySelectedIndex,
-          lengthInput.value,
-          ofInput.value
-        );
+        // Récupère l'entrée sélectionnée et ses détails
+        const entryDiv = document.querySelectorAll(".cut-length-entry")[this.currentlySelectedIndex];
+        const entry = this.cutLengths[this.currentlySelectedIndex];
+      
+        // Crée des champs d'entrée pour la modification
+        const lengthInput = document.createElement("input");
+        lengthInput.type = "text";
+        lengthInput.value = entry.cutLength;
+        lengthInput.classList.add("edit-length"); 
+      
+        const ofInput = document.createElement("input");
+        ofInput.type = "text";
+        ofInput.value = entry.of;
+        ofInput.classList.add("edit-of");
+      
+        // Vide le contenu de l'entrée et y ajoute les champs d'entrée
+        entryDiv.innerHTML = "";
+        entryDiv.appendChild(lengthInput);
+        entryDiv.appendChild(ofInput);
+      
+        lengthInput.focus(); 
+      
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Sauvegarder";
+        saveButton.addEventListener("click", () => {
+          const newLength = lengthInput.value;
+          const newOf = ofInput.value;
+          const alertDiv = document.getElementById("alertDiv");
+      
+          // Validation des nouvelles entrées
+          if (!newLength.match(/^\d+$/) || newLength === "" || !newOf.match(/^[a-zA-Z0-9]+$/) || newOf === "") {
+            alertDiv.textContent = "La longueur doit être un nombre et l'OF peut être alphanumérique mais aucun des champs ne peut être vide.";
+            alertDiv.classList.remove("d-none");
+            return; // Arrête l'exécution si la validation échoue
+          }
+      
+          // Cache la div d'alerte si elle était affichée suite à une erreur précédente
+          alertDiv.classList.add("d-none");
+      
+          // Logique de sauvegarde des modifications
+          this._saveEdit(this.currentlySelectedIndex, newLength, newOf);
+          document.getElementById("contextMenuCut").style.display = "none";
+        });
+        entryDiv.appendChild(saveButton);
+      
+        document.getElementById("contextMenuCut").style.display = "none";
       });
-      entryDiv.appendChild(saveButton);
-
-      // Cacher le menu
-      document.getElementById("contextMenuCut").style.display = "none";
-    });
+      
 
     deleteItem.addEventListener("click", () => {
       // Supprimer l'élément du tableau

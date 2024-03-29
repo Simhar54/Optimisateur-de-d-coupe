@@ -125,6 +125,13 @@
                 </div>
             </section>
         </form>
+        <div class="container text-center">
+            <div id="alertDiv" class="alert alert-danger d-none col col-6" role="alert">
+                <!-- Le message d'erreur sera inséré ici -->
+            </div>
+        </div>
+
+
 
         <!-- Menu contextuel -->
         <div id="contextMenuCut" class="context-menu" style="display: none;">

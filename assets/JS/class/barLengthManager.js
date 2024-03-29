@@ -84,27 +84,37 @@ export class BarLengthManager {
       const barLengthInput = document.createElement("input");
       barLengthInput.type = "text";
       barLengthInput.value = selectedEntry.length;
-      barLengthInput.classList.add("edit-bar-length"); // Classe CSS pour le styling
+      barLengthInput.classList.add("edit-bar-length");
 
-      // Optionnel: Créer un champ d'entrée pour la quantité si nécessaire
-
-      // Remplace le contenu de l'élément div par le champ d'entrée
       entryDiv.innerHTML = "";
       entryDiv.appendChild(barLengthInput);
-
       barLengthInput.focus(); // Met le focus sur le champ pour la modification immédiate
 
-      // Crée un bouton de sauvegarde pour enregistrer les modifications
       const saveButton = document.createElement("button");
       saveButton.textContent = "Sauvegarder";
       saveButton.addEventListener("click", () => {
-        // Validez et sauvegardez la nouvelle longueur ici
         const newLength = barLengthInput.value;
+        const alertDiv = document.getElementById("alertDiv");
+
+        // Validation de la nouvelle longueur
+        if (!newLength.match(/^\d+$/) || newLength === "") {
+          alertDiv.textContent =
+            "La longueur doit être un nombre et ne peut pas être vide.";
+          alertDiv.classList.remove("d-none");
+          return; // Arrête l'exécution si la validation échoue
+        }
+
+        // Cache la div d'alerte si elle était affichée suite à une erreur précédente
+        alertDiv.classList.add("d-none");
+
+        // Logique de sauvegarde des modifications
         this._saveBarLengthEdit(selectedIndex, newLength);
-        // Vous devrez implémenter la méthode _saveBarLengthEdit pour mettre à jour this.barLengths et rafraîchir l'affichage
+        document.getElementById("contextMenuBar").style.display = "none";
       });
 
       entryDiv.appendChild(saveButton);
+
+      // Gestionnaire pour "Supprimer" reste inchangé
 
       // Cache le menu contextuel
       document.getElementById("contextMenuBar").style.display = "none";
@@ -143,6 +153,6 @@ export class BarLengthManager {
       console.log("Erreur: La nouvelle longueur est invalide.");
     }
   }
-  
+
   // Méthodes pour le menu contextuel, la modification et la suppression d'entrées...
 }

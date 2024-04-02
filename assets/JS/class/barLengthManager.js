@@ -4,6 +4,9 @@ export class BarLengthManager {
     this.entryId = 0; // Un simple compteur pour générer des identifiants uniques
     this._setupEventListeners();
   }
+  
+
+
 
   addBarLength(barLength, quantity) {
     for (let i = 0; i < quantity; i++) {
@@ -13,6 +16,18 @@ export class BarLengthManager {
     this._updateDisplay();
     console.log(this.barLengths);
   }
+
+  
+  totalBarLength() {
+    let totalBarLength = document.getElementById("totalBarLength")
+    let total = 0;
+    this.barLengths.forEach((entry) => {
+      total += parseInt(entry.length);
+    });
+    totalBarLength.textContent = total;    
+
+  }
+ 
 
   _updateDisplay() {
     const displayElement = document.getElementById("barrLenghtDisplay");
@@ -24,6 +39,7 @@ export class BarLengthManager {
       entryDiv.textContent = `Longueur de barre: ${entry.length}`;
       entryDiv.dataset.entryId = entry.id; // Stocke l'identifiant unique comme attribut de données
       displayElement.appendChild(entryDiv);
+      this.totalBarLength();
 
       entryDiv.addEventListener("click", (event) => {
         // Désélectionnez d'abord tout élément sélectionné
@@ -128,7 +144,6 @@ export class BarLengthManager {
         (entry) => entry.id !== this.currentlySelectedEntryId
       );
       this._updateDisplay(); // Met à jour l'affichage pour refléter la suppression
-
       contextMenu.style.display = "none";
     });
   }
@@ -149,6 +164,7 @@ export class BarLengthManager {
       this.barLengths[index].length = newLength;
       // Rafraîchit l'affichage
       this._updateDisplay();
+
     } else {
       console.log("Erreur: La nouvelle longueur est invalide.");
     }

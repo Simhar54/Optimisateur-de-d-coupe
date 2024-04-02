@@ -38,14 +38,14 @@
                     <h2 class="text-center mt-3">Information général</h2>
                     <div class="col-md-4 mt-2">
                         <label for="barDrop">Chute de barre</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" autocomplete="off">
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" autocomplete="off" value="500">
                         <div class="valid-feedback">
                             Validé!
                         </div>
                     </div>
                     <div class="col-md-4 mt-2">
                         <label for="sawBladeSize">Taille de la lame de scie</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" autocomplete="off">
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="sawBladeSize" name="sawBladeSize" autocomplete="off" value="2">
                         <div class="valid-feedback">
                             Validé!
                         </div>
@@ -112,6 +112,7 @@
                                 </div>
 
                             </div>
+                            <div>Longueur total des barres : <p id="totalBarLength">0</p></div>
                         </div>
 
                     </div>
@@ -126,7 +127,7 @@
             </section>
         </form>
         <div class="container text-center">
-            <div id="alertDiv" class="alert alert-danger d-none col col-6" role="alert">
+            <div id="alertDiv" class="alert alert-danger d-none col col-6 mx-auto" role="alert">
                 <!-- Le message d'erreur sera inséré ici -->
             </div>
         </div>

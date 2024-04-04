@@ -75,6 +75,9 @@ export class FormInteractionManager {
       .getElementById("optimizeButton")
       .addEventListener("click", (event) => {
         event.preventDefault();
+        const optimizeButton = document.getElementById("optimizeButton");
+        optimizeButton.disabled = true; // Désactive le bouton immédiatement lors de l'envoi
+    
         this._handleOptimize();
       });
   }
@@ -127,16 +130,89 @@ export class FormInteractionManager {
   _handleOptimize() {
     const barDropInput = document.getElementById("barDrop");
     const sawBladeSizeInput = document.getElementById("sawBladeSize");
+    const optimizeButton = document.getElementById("optimizeButton");
 
-    if (this.validator.validateOptimizeAction([barDropInput, sawBladeSizeInput])
-    && this.barLengthManager.barLengths.length > 0 
-    && this.cutLengthManager.cutLengths.length > 0) {
+    if (
+      this.validator.validateOptimizeAction([
+        barDropInput,
+        sawBladeSizeInput,
+      ]) &&
+      this.barLengthManager.barLengths.length > 0 &&
+      this.cutLengthManager.cutLengths.length > 0
+    ) {
       // Tous les champs sont valides
+      alertDiv.classList.add("d-none");
+      let data = {
+        barLengths: this.barLengthManager.barLengths,
+        cutLengths: this.cutLengthManager.cutLengths,
+        barDrop: barDropInput.value,
+        sawBladeSize: sawBladeSizeInput.value,
+      };
+      let jsonData = JSON.stringify(data);
+      fetch("API/optimisation.api.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Succès:", data);
+          setTimeout(() => {
+            optimizeButton.disabled = false; // Réactive le bouton après un délai
+        }, 5000); 
+        })
+        .catch((error) => {
+          console.error("Erreur:", error);
+          setTimeout(() => {
+            optimizeButton.disabled = false; // Réactive le bouton après un délai
+        }, 5000); 
+        this._alertDiv("Une erreur s'est produite lors de l'optimisation.Veuillez recommencer , si l'erreur persiste contactez l'administrateur.");
+          
+        });
+
       console.log("Optimisation réussie.");
       // Soumettez ici ou effectuez la logique d'optimisation
     } else {
+      switch (
+        (barDropInput.value,
+        sawBladeSizeInput.value,
+        this.barLengthManager.barLengths.length,
+        this.cutLengthManager.cutLengths.length)
+      ) {
+        case (barDropInput.value, sawBladeSizeInput.value, 0, 0):
+          this._alertDiv(
+            "Veuillez ajouter des longueurs de barre et des longueurs de coupe avant de continuer."
+          );
+          break;
+        case (barDropInput.value,
+        sawBladeSizeInput.value,
+        0,
+        this.cutLengthManager.cutLengths.length):
+          this._alertDiv(
+            "Veuillez ajouter des longueurs de barre avant de continuer."
+          );
+          break;
+        case (barDropInput.value,
+        sawBladeSizeInput.value,
+        this.barLengthManager.barLengths.length,
+        0):
+          this._alertDiv(
+            "Veuillez ajouter des longueurs de coupe avant de continuer."
+          );
+          break;
+        default:
+          break;
+      }
       console.log("Optimisation échouée.");
     }
+  }
+
+  _alertDiv(errorMsg) {
+    alertDiv.textContent = errorMsg;
+    alertDiv.classList.remove("d-none");
+    return;
   }
 
   // Vous pouvez ajouter ici des méthodes supplémentaires pour gérer d'autres interactions

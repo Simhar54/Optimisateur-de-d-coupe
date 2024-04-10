@@ -15,6 +15,17 @@ export class CutLengthManager {
     console.log(this.cutLengths);
   }
 
+  totalCutLength() {
+    let totalBarLength = document.getElementById("totalCutLength")
+    let total = 0;
+    this.cutLengths.forEach((entry) => {
+
+      total += parseInt(entry.cutLength);
+    });
+    totalBarLength.textContent = total;    
+
+  }
+
   // Méthode privée pour mettre à jour l'affichage des longueurs et OFs ajoutés
   _updateDisplay() {
     const displayElement = document.querySelector("#cutLengthDisplay"); // Assurez-vous que cet élément existe
@@ -35,6 +46,8 @@ export class CutLengthManager {
       // Structure pour aligner le contenu
       entryDiv.appendChild(lengthDiv);
       entryDiv.appendChild(ofDiv);
+      this.totalCutLength();  
+
 
       entryDiv.addEventListener("click", (event) => {
         // Désélectionnez d'abord tout élément sélectionné

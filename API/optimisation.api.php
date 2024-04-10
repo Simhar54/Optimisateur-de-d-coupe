@@ -1,23 +1,36 @@
 <?php
+// Assurez-vous que le chemin vers FirstFitOptimizer.php est correct
+require_once 'optimizeAlgo/FirstFitOptimizer.php';
+require_once 'optimizeAlgo/BestFitOptimizer.php';
+require_once 'optimizeAlgo/NextFitOptimizer.php';
 
 header("Content-Type: application/json");
 
-// Récupère le corps de la requête POST qui est au format JSON
 $json = file_get_contents('php://input');
-
-// Convertit le JSON reçu en objet PHP
 $data = json_decode($json);
 
-// Votre logique pour traiter $data...
-// Par exemple, vérifier que les données sont valides, effectuer des calculs, etc.
+$barLengths = $data->barLengths;
+$cutRequests = $data->cutLengths;
+$minDropLength = (int)$data->barDrop;
+$sawBladeSize = (int)$data->sawBladeSize;
 
-// Pour finir, vous pouvez renvoyer une réponse au client
+// Instanciation de l'optimiseur FirstFit
+$optimizerFirstFit = new FirstFitOptimizer($minDropLength, $sawBladeSize);
+$opimizerBestFit = new BestFitOptimizer($minDropLength, $sawBladeSize);
+$optimizerNextFit = new NextFitOptimizer($minDropLength, $sawBladeSize);
+
+// Exécution de l'optimisation
+$resultsFirstFit = $optimizerFirstFit->optimize($barLengths, $cutRequests);
+$resultsBestFit = $opimizerBestFit->optimize($barLengths, $cutRequests);
+$resultsNextFit = $optimizerNextFit->optimize($barLengths, $cutRequests);
+
+
+// Construction et envoi de la réponse
 $response = [
     'status' => 'success',
-    'message' => 'Optimisation traitée avec succès.',
-    // Vous pouvez ajouter d'autres clés selon les besoins de votre application
+    'message' => 'Optimisation réalisée avec succès.',
+    'results' => [$resultsFirstFit, $resultsBestFit, $resultsNextFit]
 ];
 
-// Envoie la réponse en JSON
 echo json_encode($response);
 ?>

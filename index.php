@@ -38,7 +38,7 @@
                     <h2 class="text-center mt-3">Information général</h2>
                     <div class="col-md-4 mt-2">
                         <label for="barDrop">Chute de barre</label>
-                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" autocomplete="off" value="500">
+                        <input type="text" class="form-control mt-1 bg-light text-dark" id="barDrop" name="barDrop" autocomplete="off" value="100">
                         <div class="valid-feedback">
                             Validé!
                         </div>
@@ -57,7 +57,7 @@
                         <div class="col-md-6 my-3">
                             <div class="input-group has-validation mb-3 row">
                                 <div class="col col-10 col-md-6">
-                                    <label for="cutLength" class="form-label">Longueur de coupe</label>
+                                    <label for="cutLength" class="form-label">Coupe</label>
                                     <input type="text" class="form-control bg-light text-dark" name="cutLength" id="cutLength" autocomplete="off">
                                     <div class="valid-feedback">
                                         Validé!
@@ -82,12 +82,13 @@
                                 </div>
 
                             </div>
+                            <div>Longueur total des coupes : <p id="totalCutLength">0</p></div>
                         </div>
 
                         <div class="col-md-6 my-3">
                             <div class="input-group has-validation mb-3 row">
                                 <div class="col col-10 col-md-7">
-                                    <label for="barLength" class="form-label">Barre à couper</label>
+                                    <label for="barLength" class="form-label">Barre</label>
                                     <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" autocomplete="off">
                                     <div class="valid-feedback">
                                         Looks good!

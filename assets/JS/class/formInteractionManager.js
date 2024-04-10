@@ -149,6 +149,7 @@ export class FormInteractionManager {
         sawBladeSize: sawBladeSizeInput.value,
       };
       let jsonData = JSON.stringify(data);
+      console.log(jsonData);
       fetch("API/optimisation.api.php", {
         method: "POST",
         headers: {

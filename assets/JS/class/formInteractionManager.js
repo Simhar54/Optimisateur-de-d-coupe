@@ -169,7 +169,7 @@ export class FormInteractionManager {
           setTimeout(() => {
             optimizeButton.disabled = false; // Réactive le bouton après un délai
         }, 5000); 
-        this._alertDiv("Une erreur s'est produite lors de l'optimisation.Veuillez recommencer , si l'erreur persiste contactez l'administrateur.");
+        this._alertDiv(error.message || "Une erreur s'est produite. Veuillez réessayer.");
           
         });
 

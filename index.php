@@ -82,7 +82,8 @@
                                 </div>
 
                             </div>
-                            <div>Longueur total des coupes : <p id="totalCutLength">0</p></div>
+                            <div>Longueur total des coupes : <p id="totalCutLength">0</p>
+                            </div>
                         </div>
 
                         <div class="col-md-6 my-3">
@@ -113,7 +114,8 @@
                                 </div>
 
                             </div>
-                            <div>Longueur total des barres : <p id="totalBarLength">0</p></div>
+                            <div>Longueur total des barres : <p id="totalBarLength">0</p>
+                            </div>
                         </div>
 
                     </div>
@@ -132,6 +134,11 @@
                 <!-- Le message d'erreur sera inséré ici -->
             </div>
         </div>
+        <div id="resultOptimize" class="d-none text-center">
+            <h2>Résultats de l'Optimisation</h2>
+            <div id="optimizationDetails"></div>
+        </div>
+
 
 
 

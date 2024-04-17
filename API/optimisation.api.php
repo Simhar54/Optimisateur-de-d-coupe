@@ -14,6 +14,12 @@ $cutRequests = $data->cutLengths;
 $minDropLength = (int)$data->barDrop;
 $sawBladeSize = (int)$data->sawBladeSize;
 
+// tri bar lengths de la plus petite à la plus grande
+usort($barLengths, function($a, $b) {
+    return $a->length - $b->length;
+});
+
+
 // Instanciation de l'optimiseur FirstFit
 $optimizerFirstFit = new FirstFitOptimizer($minDropLength, $sawBladeSize);
 $opimizerBestFit = new BestFitOptimizer($minDropLength, $sawBladeSize);

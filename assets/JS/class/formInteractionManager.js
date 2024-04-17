@@ -77,7 +77,7 @@ export class FormInteractionManager {
         event.preventDefault();
         const optimizeButton = document.getElementById("optimizeButton");
         optimizeButton.disabled = true; // Désactive le bouton immédiatement lors de l'envoi
-    
+
         this._handleOptimize();
       });
   }
@@ -152,29 +152,64 @@ export class FormInteractionManager {
       console.log(jsonData);
       fetch("API/optimisation.api.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: jsonData,
       })
         .then((response) => response.json())
         .then((data) => {
           console.log("Succès:", data);
-          setTimeout(() => {
-            optimizeButton.disabled = false; // Réactive le bouton après un délai
-        }, 5000); 
+          if (data.status === "success") {
+            displayOptimizationResults(data.results);
+          } else {
+            throw new Error(
+              data.message ||
+                "Une erreur inattendue est survenue lors de l'optimisation."
+            );
+          }
         })
         .catch((error) => {
           console.error("Erreur:", error);
-          setTimeout(() => {
-            optimizeButton.disabled = false; // Réactive le bouton après un délai
-        }, 5000); 
-        this._alertDiv(error.message || "Une erreur s'est produite. Veuillez réessayer.");
-          
+          this._alertDiv(
+            error.message || "Une erreur s'est produite. Veuillez réessayer."
+          );
+        })
+        .finally(() => {
+          optimizeButton.disabled = false; // Réactive le bouton après traitement
         });
 
-      console.log("Optimisation réussie.");
-      // Soumettez ici ou effectuez la logique d'optimisation
+      function displayOptimizationResults(results) {
+        const resultsContainer = document.getElementById("optimizationDetails");
+        resultsContainer.innerHTML = ""; // Effacer les résultats précédents
+
+        // Création du tableau pour afficher les résultats
+        const table = document.createElement("table");
+        table.className = "table table-striped"; // Ajout de classes Bootstrap pour le style
+        table.innerHTML = `
+              <thead>
+                  <tr>
+                      <th>Barre (Longueur initiale)</th>
+                      <th>Coupes (Longueur - OF)</th>
+                      <th>Longueur restante</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          `;
+
+        results.forEach((result) => {
+          const row = table.insertRow(-1); // Insérer une nouvelle ligne dans le tableau
+          row.insertCell(0).textContent = `Barre ${result.initialLength}`;
+          row.insertCell(1).innerHTML = result.cuts
+            .map((cut) => `${cut.length} - OF ${cut.of}`)
+            .join("<br>");
+          row.insertCell(2).textContent = result.remainder;
+        });
+
+        resultsContainer.appendChild(table);
+
+        // Retirer la classe d-none pour afficher les résultats
+        document.getElementById("resultOptimize").classList.remove("d-none");
+      }
     } else {
       switch (
         (barDropInput.value,

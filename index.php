@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col col-3">
                                     <label for="qte" class="form-label">Qté</label>
-                                    <input type="text" class="form-control bg-light text-dark" name="qte" id="qte" autocomplete="off">
+                                    <input type="text" class="form-control bg-light text-dark" name="qte" id="qte" autocomplete="off" value="1">
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>

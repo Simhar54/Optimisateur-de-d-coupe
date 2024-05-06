@@ -134,10 +134,13 @@
                 <!-- Le message d'erreur sera inséré ici -->
             </div>
         </div>
-        <div id="resultOptimize" class="d-none text-center">
-            <h2>Résultats de l'Optimisation</h2>
-            <div id="optimizationDetails"></div>
-        </div>
+        <section class="col col-md-8 col-12 text-center mx-auto">
+            <div id="resultOptimize" class="d-none text-center">
+                <h2>Résultats de l'Optimisation</h2>
+                <div id="optimizationDetails"></div>
+            </div>
+        </section>
+
 
 
 

@@ -1,8 +1,9 @@
 export class FormInteractionManager {
-  constructor(validator, cutLengthManager, barLengthManager) {
+  constructor(validator, cutLengthManager, barLengthManager, optimizationResultsDisplay) {
     this.validator = validator;
     this.cutLengthManager = cutLengthManager;
-    this.barLengthManager = barLengthManager; // Nouvelle dépendance ajoutée
+    this.barLengthManager = barLengthManager;
+    this.optimizationResultsDisplay = optimizationResultsDisplay; 
     this._setupEventListeners();
   }
 
@@ -159,7 +160,7 @@ export class FormInteractionManager {
         .then((data) => {
           console.log("Succès:", data);
           if (data.status === "success") {
-            displayOptimizationResults(data.results);
+            this.optimizationResultsDisplay.display(data.results);
           } else {
             throw new Error(
               data.message ||
@@ -177,39 +178,6 @@ export class FormInteractionManager {
           optimizeButton.disabled = false; // Réactive le bouton après traitement
         });
 
-      function displayOptimizationResults(results) {
-        const resultsContainer = document.getElementById("optimizationDetails");
-        resultsContainer.innerHTML = ""; // Effacer les résultats précédents
-
-        // Création du tableau pour afficher les résultats
-        const table = document.createElement("table");
-        table.className = "table table-striped"; // Ajout de classes Bootstrap pour le style
-        table.innerHTML = `
-              <thead>
-                  <tr>
-                      <th>Barre (Longueur initiale)</th>
-                      <th>Coupes (Longueur - OF)</th>
-                      <th>Longueur restante</th>
-                  </tr>
-              </thead>
-              <tbody>
-              </tbody>
-          `;
-
-        results.forEach((result) => {
-          const row = table.insertRow(-1); // Insérer une nouvelle ligne dans le tableau
-          row.insertCell(0).textContent = `Barre ${result.initialLength}`;
-          row.insertCell(1).innerHTML = result.cuts
-            .map((cut) => `${cut.length} - OF ${cut.of}`)
-            .join("<br>");
-          row.insertCell(2).textContent = result.remainder;
-        });
-
-        resultsContainer.appendChild(table);
-
-        // Retirer la classe d-none pour afficher les résultats
-        document.getElementById("resultOptimize").classList.remove("d-none");
-      }
     } else {
       switch (
         (barDropInput.value,

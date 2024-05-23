@@ -172,3 +172,5 @@ export class BarLengthManager {
 
   // Méthodes pour le menu contextuel, la modification et la suppression d'entrées...
 }
+
+

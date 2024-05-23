@@ -36,8 +36,26 @@ export class OptimizationResultsDisplay {
     // Création du corps du tableau
     const body = table.createTBody();
 
-    // Remplissage du tableau avec les résultats de l'optimisation
+    // Séparer les résultats en deux groupes : utilisées et non utilisées
+    let usedBars = [];
+    let unusedBars = [];
+
     results.forEach((result) => {
+      if (result.cuts.length > 0) {
+        usedBars.push(result);
+      } else {
+        unusedBars.push(result);
+      }
+    });
+
+    // Trier les barres utilisées par longueur initiale en ordre croissant
+    usedBars.sort((a, b) => a.initialLength - b.initialLength);
+
+    // Combinez les listes pour l'affichage : d'abord les barres utilisées, puis les non utilisées
+    const sortedResults = usedBars.concat(unusedBars);
+
+    // Remplissage du tableau avec les résultats de l'optimisation
+    sortedResults.forEach((result) => {
       const row = body.insertRow(); // Insérer une nouvelle ligne à la fin du tableau
 
       // Colonne Barre (Longueur initiale)

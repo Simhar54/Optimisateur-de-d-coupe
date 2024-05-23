@@ -1,14 +1,34 @@
+// Importation des classes nécessaires (assurez-vous que ces importations sont correctes et complètes)
 export class FormInteractionManager {
-  constructor(validator, cutLengthManager, barLengthManager, optimizationResultsDisplay) {
+  /**
+   * Constructeur de la classe FormInteractionManager.
+   * Initialise les managers pour les validations, coupes, longueurs de barres et l'affichage des résultats.
+   * @param {FormValidator} validator - Un objet pour valider les entrées du formulaire.
+   * @param {CutLengthManager} cutLengthManager - Gère les actions liées aux longueurs de coupe.
+   * @param {BarLengthManager} barLengthManager - Gère les actions liées aux longueurs de barres.
+   * @param {CutVerifier} cutVerifier - Vérifie si les coupes sont réalisables avec les barres disponibles.
+   * @param {OptimizationResultsDisplay} optimizationResultsDisplay - Gère l'affichage des résultats d'optimisation.
+   */
+  constructor(
+    validator,
+    cutLengthManager,
+    barLengthManager,
+    cutVerifier,
+    optimizationResultsDisplay
+  ) {
     this.validator = validator;
     this.cutLengthManager = cutLengthManager;
     this.barLengthManager = barLengthManager;
-    this.optimizationResultsDisplay = optimizationResultsDisplay; 
-    this._setupEventListeners();
+    this.cutVerifier = cutVerifier;
+    this.optimizationResultsDisplay = optimizationResultsDisplay;
+    this._setupEventListeners(); // Configuration initiale des écouteurs d'événements.
   }
 
+  /**
+   * Configure les écouteurs d'événements pour divers éléments de l'interface utilisateur.
+   */
   _setupEventListeners() {
-    // Ajoutez ici les écouteurs d'événements pour les boutons "Ajouter"
+    // Ajoute un écouteur pour le bouton d'ajout de longueurs de coupe.
     document
       .getElementById("addCutLength")
       .addEventListener("click", (event) => {
@@ -16,22 +36,21 @@ export class FormInteractionManager {
         this._handleAddCutLength();
       });
 
+    // Ajoute des écouteurs pour soumettre avec la touche 'Entrée'.
     ["cutLength", "of"].forEach((id) => {
       document.getElementById(id).addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
           this._handleAddCutLength();
-          document.getElementById("cutLength").focus(); // Remet le focus sur cutLength
+          document.getElementById("cutLength").focus(); // Garde le focus sur le champ de saisie.
         }
       });
     });
 
+    // Écouteur pour gérer la désélection des entrées lors du clic à l'extérieur.
     document.addEventListener("click", (event) => {
-      // Vérifiez si le clic était sur un élément de la liste
       const isCutLengthEntryClicked = event.target.closest(".cut-length-entry");
-
       if (!isCutLengthEntryClicked) {
-        // Désélectionnez tout élément de liste sélectionné
         document
           .querySelectorAll(".cut-length-entry.selected")
           .forEach((selected) => {
@@ -40,6 +59,7 @@ export class FormInteractionManager {
       }
     });
 
+    // Écouteurs similaires pour les longueurs de barres.
     document
       .getElementById("addBarLength")
       .addEventListener("click", (event) => {
@@ -52,86 +72,88 @@ export class FormInteractionManager {
         if (event.key === "Enter") {
           event.preventDefault();
           this._handleAddBarLength();
-          document.getElementById("barLength").focus(); // Remet le focus sur barLength
+          document.getElementById("barLength").focus();
         }
       });
     });
 
-    document.addEventListener("click", (event) => {
-      // Vérifiez si le clic était sur un élément de la liste
-      const isBarLengthEntryClicked = event.target.closest(".bar-length-entry");
-
-      if (!isBarLengthEntryClicked) {
-        // Désélectionnez tout élément de liste sélectionné
-        document
-          .querySelectorAll(".bar-length-entry.selected")
-          .forEach((selected) => {
-            selected.classList.remove("selected");
-          });
-      }
-    });
-
-    // Validation lors de l'optimisation
+    // Gestion de l'optimisation lors du clic sur le bouton optimiser.
     document
       .getElementById("optimizeButton")
       .addEventListener("click", (event) => {
         event.preventDefault();
         const optimizeButton = document.getElementById("optimizeButton");
-        optimizeButton.disabled = true; // Désactive le bouton immédiatement lors de l'envoi
-
+        optimizeButton.disabled = true; // Désactive le bouton pendant l'envoi.
         this._handleOptimize();
       });
   }
 
+  /**
+   * Désélectionne toutes les entrées sélectionnées pour les coupes.
+   */
   _deselectAllCutLengthEntries() {
     document.querySelectorAll(".cut-length-entry.selected").forEach((entry) => {
       entry.classList.remove("selected");
     });
   }
 
+  /**
+   * Désélectionne toutes les entrées sélectionnées pour les longueurs de barre.
+   */
   _deselectAllBarLengthEntries() {
     document.querySelectorAll(".bar-length-entry.selected").forEach((entry) => {
       entry.classList.remove("selected");
     });
   }
 
+  /**
+   * Gère l'ajout d'une longueur de coupe.
+   */
   _handleAddCutLength() {
     const cutLengthInput = document.getElementById("cutLength");
     const ofInput = document.getElementById("of");
-
     if (
       this.validator.validateAddAction(cutLengthInput) &&
       this.validator.validateAddAction(ofInput)
     ) {
       this.cutLengthManager.addCutLength(cutLengthInput.value, ofInput.value);
-      cutLengthInput.value = "";
+      cutLengthInput.value = ""; // Réinitialise les champs après l'ajout.
       ofInput.value = "";
       console.log("Ajout réussi.");
     }
   }
 
+  /**
+   * Gère l'ajout de longueurs de barres.
+   */
   _handleAddBarLength() {
     const barLengthInput = document.getElementById("barLength");
     const quantityInput = document.getElementById("qte");
     const barLength = barLengthInput.value;
-    const quantity = parseInt(quantityInput.value, 10) || 1;
-
-    // Assurez-vous que les méthodes de validation appropriées sont implémentées dans votre validator
+    const quantity = parseInt(quantityInput.value, 10) || 1; // Utilise 1 comme quantité par défaut.
     if (
-      this.validator.validateAddAction(barLengthInput) && // Validez la longueur de la barre
-      this.validator.validateAddAction(quantityInput) // Validez la quantité
+      this.validator.validateAddAction(barLengthInput) &&
+      this.validator.validateAddAction(quantityInput)
     ) {
       this.barLengthManager.addBarLength(barLength, quantity);
-      barLengthInput.value = "";
+      barLengthInput.value = ""; // Réinitialise les champs après l'ajout.
       quantityInput.value = "";
       console.log("Bar length added successfully.");
     }
   }
 
+  /**
+   * Gère l'optimisation des coupes.
+   */
   _handleOptimize() {
     const barDropInput = document.getElementById("barDrop");
     const sawBladeSizeInput = document.getElementById("sawBladeSize");
-    const optimizeButton = document.getElementById("optimizeButton");
+    const verification = this.cutVerifier.validateCuts();
+    if (!verification.valid) {
+      this._alertDiv(verification.message);
+      document.getElementById("optimizeButton").disabled = false;
+      return;
+    }
 
     if (
       this.validator.validateOptimizeAction([
@@ -141,8 +163,8 @@ export class FormInteractionManager {
       this.barLengthManager.barLengths.length > 0 &&
       this.cutLengthManager.cutLengths.length > 0
     ) {
-      // Tous les champs sont valides
-      alertDiv.classList.add("d-none");
+      console.log(this.barLengthManager.barLengths[1].length);
+      // Préparation des données pour la requête d'optimisation.
       let data = {
         barLengths: this.barLengthManager.barLengths,
         cutLengths: this.cutLengthManager.cutLengths,
@@ -151,6 +173,7 @@ export class FormInteractionManager {
       };
       let jsonData = JSON.stringify(data);
       console.log(jsonData);
+      // Envoi de la requête d'optimisation.
       fetch("API/optimisation.api.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -175,48 +198,23 @@ export class FormInteractionManager {
           );
         })
         .finally(() => {
-          optimizeButton.disabled = false; // Réactive le bouton après traitement
+          document.getElementById("optimizeButton").disabled = false; // Réactive le bouton après traitement.
         });
-
     } else {
-      switch (
-        (barDropInput.value,
-        sawBladeSizeInput.value,
-        this.barLengthManager.barLengths.length,
-        this.cutLengthManager.cutLengths.length)
-      ) {
-        case (barDropInput.value, sawBladeSizeInput.value, 0, 0):
-          this._alertDiv(
-            "Veuillez ajouter des longueurs de barre et des longueurs de coupe avant de continuer."
-          );
-          break;
-        case (barDropInput.value,
-        sawBladeSizeInput.value,
-        0,
-        this.cutLengthManager.cutLengths.length):
-          this._alertDiv(
-            "Veuillez ajouter des longueurs de barre avant de continuer."
-          );
-          break;
-        case (barDropInput.value,
-        sawBladeSizeInput.value,
-        this.barLengthManager.barLengths.length,
-        0):
-          this._alertDiv(
-            "Veuillez ajouter des longueurs de coupe avant de continuer."
-          );
-          break;
-        default:
-          break;
-      }
+      // Gestion des erreurs d'entrée avant l'optimisation.
+      this._alertDiv("Veuillez vérifier les entrées et essayer à nouveau.");
       console.log("Optimisation échouée.");
     }
   }
 
+  /**
+   * Affiche une alerte d'erreur.
+   * @param {string} errorMsg - Message d'erreur à afficher.
+   */
   _alertDiv(errorMsg) {
+    const alertDiv = document.getElementById("alertDiv"); // Assurez-vous que cet élément existe dans le HTML.
     alertDiv.textContent = errorMsg;
-    alertDiv.classList.remove("d-none");
-    return;
+    alertDiv.classList.remove("d-none"); // Montre le message d'erreur.
   }
 
   // Vous pouvez ajouter ici des méthodes supplémentaires pour gérer d'autres interactions

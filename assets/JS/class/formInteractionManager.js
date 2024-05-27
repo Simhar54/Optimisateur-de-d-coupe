@@ -86,6 +86,14 @@ export class FormInteractionManager {
         optimizeButton.disabled = true; // Désactive le bouton pendant l'envoi.
         this._handleOptimize();
       });
+
+    // Ecouteur pour le bouton d'impression en PDF.
+    document
+      .getElementById("generatePDFButton")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        this._handlePrintInPdf();
+      });
   }
 
   /**
@@ -119,7 +127,6 @@ export class FormInteractionManager {
       this.cutLengthManager.addCutLength(cutLengthInput.value, ofInput.value);
       cutLengthInput.value = ""; // Réinitialise les champs après l'ajout.
       ofInput.value = "";
-      console.log("Ajout réussi.");
     }
   }
 
@@ -138,7 +145,6 @@ export class FormInteractionManager {
       this.barLengthManager.addBarLength(barLength, quantity);
       barLengthInput.value = ""; // Réinitialise les champs après l'ajout.
       quantityInput.value = "";
-      console.log("Bar length added successfully.");
     }
   }
 
@@ -163,7 +169,6 @@ export class FormInteractionManager {
       this.barLengthManager.barLengths.length > 0 &&
       this.cutLengthManager.cutLengths.length > 0
     ) {
-      console.log(this.barLengthManager.barLengths[1].length);
       // Préparation des données pour la requête d'optimisation.
       let data = {
         barLengths: this.barLengthManager.barLengths,
@@ -172,7 +177,6 @@ export class FormInteractionManager {
         sawBladeSize: sawBladeSizeInput.value,
       };
       let jsonData = JSON.stringify(data);
-      console.log(jsonData);
       // Envoi de la requête d'optimisation.
       fetch("API/optimisation.api.php", {
         method: "POST",
@@ -181,7 +185,6 @@ export class FormInteractionManager {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Succès:", data);
           if (data.status === "success") {
             this.optimizationResultsDisplay.display(data.results);
           } else {
@@ -192,7 +195,6 @@ export class FormInteractionManager {
           }
         })
         .catch((error) => {
-          console.error("Erreur:", error);
           this._alertDiv(
             error.message || "Une erreur s'est produite. Veuillez réessayer."
           );
@@ -203,7 +205,6 @@ export class FormInteractionManager {
     } else {
       // Gestion des erreurs d'entrée avant l'optimisation.
       this._alertDiv("Veuillez vérifier les entrées et essayer à nouveau.");
-      console.log("Optimisation échouée.");
     }
   }
 
@@ -217,5 +218,15 @@ export class FormInteractionManager {
     alertDiv.classList.remove("d-none"); // Montre le message d'erreur.
   }
 
+  /**
+   * Gère l'impression en PDF des résultats d'optimisation.
+   */
+
+  _handlePrintInPdf() {
+    const tableHtml = document.getElementById("optimizationDetails").innerHTML;
+    document.getElementById("tableHtml").value = tableHtml;
+    document.getElementById("pdfForm").submit();
+    console.log(tableHtml);
+  }
   // Vous pouvez ajouter ici des méthodes supplémentaires pour gérer d'autres interactions
 }

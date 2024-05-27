@@ -134,10 +134,14 @@
                 <!-- Le message d'erreur sera inséré ici -->
             </div>
         </div>
-        <section class="col col-md-8 col-12 text-center mx-auto">
+        <section class="col col-md-8 col-12 text-center mx-auto mb-3">
             <div id="resultOptimize" class="d-none text-center">
                 <h2>Résultats de l'Optimisation</h2>
                 <div id="optimizationDetails"></div>
+                <form id="pdfForm" method="post" action="API/generate_pdf.api.php">
+                    <input type="hidden" name="tableHtml" id="tableHtml">
+                    <button type="submit" class="btn btn-primary" id="generatePDFButton">Imprimer en PDF</button>
+                </form>
             </div>
         </section>
 

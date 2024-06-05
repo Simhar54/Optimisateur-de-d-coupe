@@ -20,7 +20,6 @@ export class CutLengthManager {
 
     // Mettre à jour l'affichage ou autre logique
     this._updateDisplay();
-    console.log(this.cutLengths);
   }
 
   /**
@@ -206,6 +205,5 @@ export class CutLengthManager {
 
     // Met à jour l'affichage pour refléter les changements
     this._updateDisplay();
-    console.log(this.cutLengths);
   }
 }

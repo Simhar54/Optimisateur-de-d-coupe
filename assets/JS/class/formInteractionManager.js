@@ -126,7 +126,7 @@ export class FormInteractionManager {
     ) {
       this.cutLengthManager.addCutLength(cutLengthInput.value, ofInput.value);
       cutLengthInput.value = ""; // Réinitialise les champs après l'ajout.
-      ofInput.value = "";
+      /*ofInput.value = "";*/
     }
   }
 

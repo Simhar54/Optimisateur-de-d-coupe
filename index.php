@@ -70,6 +70,13 @@
                                         Validé!
                                     </div>
                                 </div>
+                                <div class="col col-10 col-md-6">
+                                    <label for="cutQt" class="form-label mt-1">Qté</label>
+                                    <input type="text" class="form-control bg-light text-dark" name="cutQt" id="cutQt" autocomplete="off" value="1">
+                                    <div class="valid-feedback">
+                                        Validé!
+                                    </div>
+                                </div>
                                 <div>
                                     <button class="btn btn-primary mt-2" id="addCutLength" type="button">Ajouter</button>
                                 </div>
@@ -95,7 +102,7 @@
                                         Validé!
                                     </div>
                                 </div>
-                                <div class="col col-3">
+                                <div class="col col-6 mt-1">
                                     <label for="qte" class="form-label">Qté</label>
                                     <input type="text" class="form-control bg-light text-dark" name="qte" id="qte" autocomplete="off" value="1">
                                     <div class="valid-feedback">

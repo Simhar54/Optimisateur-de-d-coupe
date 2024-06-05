@@ -13,10 +13,15 @@ export class CutLengthManager {
    * @param {number} cutLength - La longueur de coupe à ajouter.
    * @param {string} of - Le OF associé à la coupe.
    */
-  addCutLength(cutLength, of) {
+  addCutLength(cutLength, of, cutQt) {
     // Ici, vous pouvez ajouter une validation supplémentaire si nécessaire
+    const qté = cutQt;
     const entry = { cutLength, of };
-    this.cutLengths.push(entry);
+
+    for (let i = 0; i < qté; i++) {
+      this.cutLengths.push(entry);
+    }
+
 
     // Mettre à jour l'affichage ou autre logique
     this._updateDisplay();

@@ -84,6 +84,7 @@ export class FormValidator {
       case "cutLength":
       case "barLength":
       case "qte":
+      case "cutQt":  
         isValid = this.validateNumeric(input);
         break;
       case "of":

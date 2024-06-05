@@ -37,7 +37,7 @@ export class FormInteractionManager {
       });
 
     // Ajoute des écouteurs pour soumettre avec la touche 'Entrée'.
-    ["cutLength", "of"].forEach((id) => {
+    ["cutLength", "of", "cutQt"].forEach((id) => {
       document.getElementById(id).addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
@@ -120,13 +120,15 @@ export class FormInteractionManager {
   _handleAddCutLength() {
     const cutLengthInput = document.getElementById("cutLength");
     const ofInput = document.getElementById("of");
+    const cutQtInput = document.getElementById("cutQt");
     if (
       this.validator.validateAddAction(cutLengthInput) &&
-      this.validator.validateAddAction(ofInput)
+      this.validator.validateAddAction(ofInput) &&
+      this.validator.validateAddAction(cutQtInput)
     ) {
-      this.cutLengthManager.addCutLength(cutLengthInput.value, ofInput.value);
+      this.cutLengthManager.addCutLength(cutLengthInput.value, ofInput.value, cutQtInput.value);
       cutLengthInput.value = ""; // Réinitialise les champs après l'ajout.
-      /*ofInput.value = "";*/
+      cutQtInput.value = "1"; // Réinitialise la valeur après l'ajout.
     }
   }
 

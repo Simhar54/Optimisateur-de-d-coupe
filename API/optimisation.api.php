@@ -1,39 +1,57 @@
 <?php
-// Assurez-vous que le chemin vers FirstFitOptimizer.php est correct
+// Inclusion des fichiers contenant les algorithmes d'optimisation
 require_once 'optimizeAlgo/FirstFitOptimizer.php';
 require_once 'optimizeAlgo/BestFitOptimizer.php';
 require_once 'optimizeAlgo/NextFitOptimizer.php';
 
+// Définition du type de contenu de la réponse HTTP
 header("Content-Type: application/json");
 
+// Récupération et décodage des données JSON envoyées dans la requête
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
+// Extraction des données nécessaires à partir des données JSON
 $barLengths = $data->barLengths;
 $cutRequests = $data->cutLengths;
 $minDropLength = (int)$data->barDrop;
 $sawBladeSize = (int)$data->sawBladeSize;
 
-// tri bar lengths de la plus petite à la plus grande
-usort($barLengths, function($a, $b) {
+// Tri des barres par longueur croissante
+usort($barLengths, function ($a, $b) {
     return $a->length - $b->length;
 });
 
-
-// Instanciation de l'optimiseur FirstFit
+// Instanciation des différents optimiseurs
 $optimizerFirstFit = new FirstFitOptimizer($minDropLength, $sawBladeSize);
 $opimizerBestFit = new BestFitOptimizer($minDropLength, $sawBladeSize);
 $optimizerNextFit = new NextFitOptimizer($minDropLength, $sawBladeSize);
 
-// Exécution de l'optimisation
+// Exécution des optimisations avec chaque algorithme
 $resultsFirstFit = $optimizerFirstFit->optimize($barLengths, $cutRequests);
 $resultsBestFit = $opimizerBestFit->optimize($barLengths, $cutRequests);
 $resultsNextFit = $optimizerNextFit->optimize($barLengths, $cutRequests);
 
-function findBestResult($resultsBestFit, $resultsFirstFit, $resultsNextFit) {
+/**
+ * Trouve le meilleur résultat parmi les trois algorithmes d'optimisation.
+ *
+ * @param array $resultsBestFit Résultats de l'optimisation avec BestFit.
+ * @param array $resultsFirstFit Résultats de l'optimisation avec FirstFit.
+ * @param array $resultsNextFit Résultats de l'optimisation avec NextFit.
+ * @return array Le meilleur résultat basé sur les critères définis.
+ */
+function findBestResult($resultsBestFit, $resultsFirstFit, $resultsNextFit)
+{
     $resultTab = [$resultsBestFit, $resultsFirstFit, $resultsNextFit];
 
-    function testBar($result) {
+    /**
+     * Évalue les barres pour déterminer le nombre de barres inutilisées et la plus grande chute restante.
+     *
+     * @param array $result Résultats d'un algorithme d'optimisation.
+     * @return array Nombre de barres inutilisées et la plus grande chute restante.
+     */
+    function testBar($result)
+    {
         $unusedBar = 0;
         $longestRemainder = 0;
         $remaindedTab = [];
@@ -52,7 +70,14 @@ function findBestResult($resultsBestFit, $resultsFirstFit, $resultsNextFit) {
         return ['unusedBar' => $unusedBar, 'longestRemainder' => $longestRemainder];
     }
 
-    function bestResult($resultTab) {
+    /**
+     * Compare les résultats pour trouver le meilleur basé sur les barres inutilisées et la plus grande chute restante.
+     *
+     * @param array $resultTab Tableau des résultats des différents algorithmes.
+     * @return array Le meilleur résultat.
+     */
+    function bestResult($resultTab)
+    {
         $bestResult = $resultTab[0];
         foreach ($resultTab as $result) {
             $testBar = testBar($result);
@@ -71,11 +96,10 @@ function findBestResult($resultsBestFit, $resultsFirstFit, $resultsNextFit) {
     return bestResult($resultTab);
 }
 
+// Recherche du meilleur résultat parmi les résultats obtenus par chaque optimiseur
+$bestResult = findBestResult($resultsBestFit, $resultsFirstFit, $resultsNextFit);
 
-$bestResult = findBestResult($resultsBestFit ,$resultsFirstFit, $resultsNextFit);
-
-
-// Construction et envoi de la réponse
+// Construction et envoi de la réponse JSON
 $response = [
     'status' => 'success',
     'message' => 'Optimisation réalisée avec succès.',

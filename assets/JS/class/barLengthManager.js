@@ -1,13 +1,19 @@
+/**
+ * Classe pour gérer les longueurs de barres.
+ * Permet d'ajouter, afficher, modifier et supprimer des longueurs de barres.
+ */
 export class BarLengthManager {
   constructor() {
     this.barLengths = []; // Stocke les longueurs des barres avec un identifiant unique
     this.entryId = 0; // Un simple compteur pour générer des identifiants uniques
     this._setupEventListeners();
   }
-  
 
-
-
+  /**
+   * Ajoute une longueur de barre à la liste.
+   * @param {number} barLength - La longueur de la barre à ajouter.
+   * @param {number} quantity - La quantité de barres à ajouter.
+   */
   addBarLength(barLength, quantity) {
     for (let i = 0; i < quantity; i++) {
       // Incrémente entryId pour s'assurer que chaque entrée a un identifiant unique
@@ -17,18 +23,23 @@ export class BarLengthManager {
     console.log(this.barLengths);
   }
 
-  
+  /**
+   * Calcule et affiche la longueur totale des barres.
+   */
   totalBarLength() {
-    let totalBarLength = document.getElementById("totalBarLength")
+    let totalBarLength = document.getElementById("totalBarLength");
     let total = 0;
     this.barLengths.forEach((entry) => {
       total += parseInt(entry.length);
     });
-    totalBarLength.textContent = total;    
-
+    totalBarLength.textContent = total;
   }
- 
 
+  /**
+   * Met à jour l'affichage des longueurs de barres.
+   * Ajoute des écouteurs d'événements pour la sélection et le menu contextuel.
+   * @private
+   */
   _updateDisplay() {
     const displayElement = document.getElementById("barrLenghtDisplay");
     displayElement.innerHTML = "";
@@ -69,6 +80,10 @@ export class BarLengthManager {
     });
   }
 
+  /**
+   * Initialise les écouteurs d'événements pour le menu contextuel.
+   * @private
+   */
   _setupEventListeners() {
     // Assurez-vous d'avoir initialisé votre menu contextuel dans le HTML.
     const contextMenu = document.getElementById("contextMenuBar");
@@ -130,8 +145,6 @@ export class BarLengthManager {
 
       entryDiv.appendChild(saveButton);
 
-      // Gestionnaire pour "Supprimer" reste inchangé
-
       // Cache le menu contextuel
       document.getElementById("contextMenuBar").style.display = "none";
       console.log(this.barLengths);
@@ -148,6 +161,13 @@ export class BarLengthManager {
     });
   }
 
+  /**
+   * Affiche le menu contextuel à une position donnée et stocke l'identifiant de l'entrée sélectionnée.
+   * @param {number} x - La position en x où afficher le menu.
+   * @param {number} y - La position en y où afficher le menu.
+   * @param {number} entryId - L'identifiant de l'entrée actuellement sélectionnée.
+   * @private
+   */
   _showContextMenu(x, y, entryId) {
     const contextMenu = document.getElementById("contextMenuBar");
     contextMenu.style.top = `${y}px`;
@@ -158,19 +178,20 @@ export class BarLengthManager {
     this.currentlySelectedEntryId = entryId;
   }
 
+  /**
+   * Sauvegarde les modifications de la longueur de la barre.
+   * @param {number} index - L'index de l'entrée à modifier.
+   * @param {number} newLength - La nouvelle longueur de la barre.
+   * @private
+   */
   _saveBarLengthEdit(index, newLength) {
     if (newLength && !isNaN(newLength) && index !== -1) {
       // Met à jour l'entrée avec la nouvelle longueur
       this.barLengths[index].length = newLength;
       // Rafraîchit l'affichage
       this._updateDisplay();
-
     } else {
       console.log("Erreur: La nouvelle longueur est invalide.");
     }
   }
-
-  // Méthodes pour le menu contextuel, la modification et la suppression d'entrées...
 }
-
-

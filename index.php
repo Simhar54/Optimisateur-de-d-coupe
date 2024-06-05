@@ -92,14 +92,14 @@
                                     <label for="barLength" class="form-label">Barre (BRUT)</label>
                                     <input type="text" class="form-control bg-light text-dark" name="barLength" id="barLength" autocomplete="off">
                                     <div class="valid-feedback">
-                                        Looks good!
+                                        Validé!
                                     </div>
                                 </div>
                                 <div class="col col-3">
                                     <label for="qte" class="form-label">Qté</label>
                                     <input type="text" class="form-control bg-light text-dark" name="qte" id="qte" autocomplete="off" value="1">
                                     <div class="valid-feedback">
-                                        Looks good!
+                                        Validé!
                                     </div>
                                 </div>
                                 <div>

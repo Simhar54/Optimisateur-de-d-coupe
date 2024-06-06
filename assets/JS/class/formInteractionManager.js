@@ -146,7 +146,7 @@ export class FormInteractionManager {
     ) {
       this.barLengthManager.addBarLength(barLength, quantity);
       barLengthInput.value = ""; // Réinitialise les champs après l'ajout.
-      quantityInput.value = "";
+      quantityInput.value = "1";
     }
   }
 

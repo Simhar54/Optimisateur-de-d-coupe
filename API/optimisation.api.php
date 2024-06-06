@@ -3,6 +3,7 @@
 require_once 'optimizeAlgo/FirstFitOptimizer.php';
 require_once 'optimizeAlgo/BestFitOptimizer.php';
 require_once 'optimizeAlgo/NextFitOptimizer.php';
+require_once 'optimizeAlgo/DynamicFitOptimzer.php';
 
 // Définition du type de contenu de la réponse HTTP
 header("Content-Type: application/json");
@@ -26,11 +27,16 @@ usort($barLengths, function ($a, $b) {
 $optimizerFirstFit = new FirstFitOptimizer($minDropLength, $sawBladeSize);
 $opimizerBestFit = new BestFitOptimizer($minDropLength, $sawBladeSize);
 $optimizerNextFit = new NextFitOptimizer($minDropLength, $sawBladeSize);
+$optimizerDynamicFit = new DynamicFitOptimizer($minDropLength, $sawBladeSize);
+
+
 
 // Exécution des optimisations avec chaque algorithme
 $resultsFirstFit = $optimizerFirstFit->optimize($barLengths, $cutRequests);
 $resultsBestFit = $opimizerBestFit->optimize($barLengths, $cutRequests);
 $resultsNextFit = $optimizerNextFit->optimize($barLengths, $cutRequests);
+$resultsDynamicFit = $optimizerDynamicFit->optimize($barLengths, $cutRequests);
+
 
 /**
  * Trouve le meilleur résultat parmi les trois algorithmes d'optimisation.
@@ -103,7 +109,7 @@ $bestResult = findBestResult($resultsBestFit, $resultsFirstFit, $resultsNextFit)
 $response = [
     'status' => 'success',
     'message' => 'Optimisation réalisée avec succès.',
-    'results' => $bestResult
+    'results' => $resultsDynamicFit
 ];
 
 echo json_encode($response);

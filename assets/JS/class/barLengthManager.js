@@ -61,6 +61,13 @@ export class BarLengthManager {
             selected.classList.remove("selected");
           }
         });
+        document
+        .querySelectorAll(".cut-length-entry.selected")
+        .forEach((selected) => {
+          if (selected !== event.currentTarget) {
+            selected.classList.remove("selected");
+          }
+        });
         // Ensuite, basculez la classe 'selected' pour l'élément actuel
         event.currentTarget.classList.toggle("selected");
       });

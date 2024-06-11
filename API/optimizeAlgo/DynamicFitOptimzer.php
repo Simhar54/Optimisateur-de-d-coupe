@@ -92,4 +92,4 @@ private function fitCut(&$bins, $request) {
     });
 }
 }
-?>
+

@@ -52,7 +52,6 @@ body {
 .cut-length-entry {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     color: black;

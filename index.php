@@ -89,7 +89,7 @@
                                 </div>
 
                             </div>
-                            <div>Longueur total des coupes : <p id="totalCutLength">0</p>
+                            <div>Longueur total des coupes : <p id="totalCutLength">0</p> Nombre de coupe : <p id="totalCutQt">0</p>
                             </div>
                         </div>
 
@@ -121,7 +121,7 @@
                                 </div>
 
                             </div>
-                            <div>Longueur total des barres : <p id="totalBarLength">0</p>
+                            <div>Longueur total des barres : <p id="totalBarLength">0</p> Nombre de barre : <p id="totalBarQt">0</p>
                             </div>
                         </div>
 

@@ -22,21 +22,22 @@ export class CutLengthManager {
       this.cutLengths.push(entry);
     }
 
-
     // Mettre à jour l'affichage ou autre logique
     this._updateDisplay();
   }
 
   /**
-   * Calcule et affiche la longueur totale des coupes.
+   * Calcule et affiche la longueur totale des coupes et la quantité totale de coupes.
    */
   totalCutLength() {
     let totalBarLength = document.getElementById("totalCutLength");
+    let totalCutQt = document.getElementById("totalCutQt");
     let total = 0;
     this.cutLengths.forEach((entry) => {
       total += parseInt(entry.cutLength);
     });
     totalBarLength.textContent = total;
+    totalCutQt.textContent = this.cutLengths.length;
   }
 
   /**
@@ -96,16 +97,53 @@ export class CutLengthManager {
 
       displayElement.appendChild(entryDiv);
     });
+
+    // Défilement automatique vers le bas
+    displayElement.scrollTop = displayElement.scrollHeight;
+
+    // Ajout des écouteurs d'événements pour les flèches du clavier
+    document.addEventListener("keydown", (event) => {
+      const selectedElement = document.querySelector(
+        ".cut-length-entry.selected"
+      );
+      if (!selectedElement) return;
+
+      let newSelectedElement;
+      if (event.key === "ArrowDown") {
+        newSelectedElement = selectedElement.nextElementSibling;
+      } else if (event.key === "ArrowUp") {
+        newSelectedElement = selectedElement.previousElementSibling;
+      }
+      // Met à jour la sélection et fait défiler si nécessaire
+      if (newSelectedElement) {
+        selectedElement.classList.remove("selected");
+        newSelectedElement.classList.add("selected");
+        const elementRect = newSelectedElement.getBoundingClientRect();
+        const containerRect = displayElement.getBoundingClientRect();
+
+        if (elementRect.bottom > containerRect.bottom) {
+          displayElement.scrollTop += elementRect.bottom - containerRect.bottom;
+        } else if (elementRect.top < containerRect.top) {
+          displayElement.scrollTop -= containerRect.top - elementRect.top;
+        }
+        // Met à jour l'index de l'élément sélectionné
+        if (newSelectedElement.offsetTop + newSelectedElement.offsetHeight > displayElement.scrollTop + displayElement.clientHeight) {
+          displayElement.scrollTop = newSelectedElement.offsetTop + newSelectedElement.offsetHeight - displayElement.clientHeight;
+        } else if (newSelectedElement.offsetTop < displayElement.scrollTop) {
+          displayElement.scrollTop = newSelectedElement.offsetTop;
+        }
+      }
+    });
   }
 
-  /**
+   /**
    * Affiche le menu contextuel à une position donnée et stocke l'index de l'entrée sélectionnée.
    * @param {number} x - La position en x où afficher le menu.
    * @param {number} y - La position en y où afficher le menu.
    * @param {number} index - L'index de l'entrée actuellement sélectionnée.
    * @private
    */
-  _showContextMenu(x, y, index) {
+   _showContextMenu(x, y, index) {
     const contextMenu = document.getElementById("contextMenuCut");
     contextMenu.style.top = `${y}px`;
     contextMenu.style.left = `${x}px`;
@@ -196,6 +234,8 @@ export class CutLengthManager {
       }
     });
   }
+
+
 
   /**
    * Sauvegarde les modifications de la longueur de coupe et du OF.

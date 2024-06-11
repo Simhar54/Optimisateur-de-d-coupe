@@ -24,15 +24,17 @@ export class BarLengthManager {
   }
 
   /**
-   * Calcule et affiche la longueur totale des barres.
+   * Calcule et affiche la longueur totale des barres et la quantité totale de barres.
    */
   totalBarLength() {
     let totalBarLength = document.getElementById("totalBarLength");
+    let totalBarQt = document.getElementById("totalBarQt");
     let total = 0;
     this.barLengths.forEach((entry) => {
       total += parseInt(entry.length);
     });
     totalBarLength.textContent = total;
+    totalBarQt.textContent = this.barLengths.length;
   }
 
   /**
@@ -78,7 +80,39 @@ export class BarLengthManager {
         this._showContextMenu(event.pageX, event.pageY, entry.id);
       });
     });
+    // Défilement automatique vers le bas
+    displayElement.scrollTop = displayElement.scrollHeight;
+
+    // Ajout des écouteurs d'événements pour les flèches du clavier
+    document.addEventListener("keydown", (event) => {
+      const selectedElement = document.querySelector(
+        ".bar-length-entry.selected"
+      );
+      if (!selectedElement) return;
+
+      let newSelectedElement;
+      if (event.key === "ArrowDown") {
+        newSelectedElement = selectedElement.nextElementSibling;
+      } else if (event.key === "ArrowUp") {
+        newSelectedElement = selectedElement.previousElementSibling;
+      }
+      // Met à jour la sélection et fait défiler si nécessaire
+      if (newSelectedElement) {
+        selectedElement.classList.remove("selected");
+        newSelectedElement.classList.add("selected");
+        const elementRect = newSelectedElement.getBoundingClientRect();
+        const containerRect = displayElement.getBoundingClientRect();
+        // Fait défiler si l'élément sélectionné est hors de la vue
+        if (elementRect.bottom > containerRect.bottom) {
+          displayElement.scrollTop += elementRect.bottom - containerRect.bottom;
+        } else if (elementRect.top < containerRect.top) {
+          displayElement.scrollTop -= containerRect.top - elementRect.top;
+        }
+      }
+    });
   }
+
+  
 
   /**
    * Initialise les écouteurs d'événements pour le menu contextuel.
@@ -194,4 +228,6 @@ export class BarLengthManager {
       console.log("Erreur: La nouvelle longueur est invalide.");
     }
   }
+
+ 
 }

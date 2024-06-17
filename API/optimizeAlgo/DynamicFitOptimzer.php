@@ -104,17 +104,6 @@ class DynamicFitOptimizer {
         return $bins;
     }
 
-    /**
-     * Calculer le total des déchets pour les barres utilisées.
-     * @param array $bins Tableau des barres utilisées.
-     * @return int Total des déchets.
-     */
-    private function calculateTotalWaste($bins) {
-        $totalWaste = 0;
-        foreach ($bins as $bin) {
-            $totalWaste += $bin['remainder'];
-        }
-        return $totalWaste;
-    }
+   
 }
-?>
+

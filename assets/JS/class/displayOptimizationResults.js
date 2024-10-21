@@ -25,6 +25,7 @@ export class OptimizationResultsDisplay {
     const headers = [
       "Barre (Longueur initiale)",
       "Coupes (Longueur - OF)",
+      "Quantité",
       "Longueur restante",
     ];
     headers.forEach((text) => {
@@ -63,16 +64,30 @@ export class OptimizationResultsDisplay {
       barCell.textContent = `Barre ${result.initialLength}`;
       barCell.className = "align-top border"; // Texte en haut, bordure solide
 
-      // Colonne Coupes (Longueur - OF)
+      // Colonne Coupes (Longueur - OF) et Quantité
+      const cutsInfo = {};
+      result.cuts.forEach((cut) => {
+        const key = `${cut.length} - OF ${cut.of}`;
+        if (cutsInfo[key]) {
+          cutsInfo[key] += 1;
+        } else {
+          cutsInfo[key] = 1;
+        }
+      });
+
       const cutsCell = row.insertCell(1);
-      cutsCell.innerHTML = result.cuts
-        .sort((a, b) => b.length - a.length) // Trier les coupes par longueur décroissante
-        .map((cut) => `${cut.length} - OF ${cut.of}`)
+      const quantityCell = row.insertCell(2);
+      cutsCell.innerHTML = Object.keys(cutsInfo)
+        .map((key) => key)
+        .join("<br>");
+      quantityCell.innerHTML = Object.values(cutsInfo)
+        .map((quantity) => quantity)
         .join("<br>");
       cutsCell.className = "text-center border"; // Texte centré, bordure solide
+      quantityCell.className = "text-center border"; // Texte centré, bordure solide
 
       // Colonne Longueur restante
-      const remainderCell = row.insertCell(2);
+      const remainderCell = row.insertCell(3);
       remainderCell.textContent = result.remainder;
       remainderCell.className = "align-bottom border"; // Texte en bas, bordure solide
     });

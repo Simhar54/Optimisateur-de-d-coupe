@@ -16,8 +16,8 @@ if (isset($_POST['tableHtml'])) {
 libxml_use_internal_errors(true);
 
 // Chargement du contenu HTML dans un objet DOMDocument
-$dom = new DOMDocument();
-$dom->loadHTML($tableHtml);
+$dom = new DOMDocument('1.0', 'UTF-8'); // Spécifie l'encodage en UTF-8
+$dom->loadHTML(mb_convert_encoding($tableHtml, 'HTML-ENTITIES', 'UTF-8'));
 
 // Utilisation de DOMXPath pour sélectionner les lignes sans "OF" dans la deuxième cellule
 $xpath = new DOMXPath($dom);
@@ -40,10 +40,10 @@ $date = date("d-m-Y H:i:s");
 $title = "Résultats de l'Optimisation - $date";
 
 // Création d'une instance de Mpdf
-$mpdf = new \Mpdf\Mpdf();
+$mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp', 'mode' => 'UTF-8']);
 
 // Création du contenu HTML pour le PDF
-$html = '<html><body>';
+$html = '<html><head><meta charset="UTF-8"></head><body>';
 $html .= "<h2>$title</h2>";
 $html .= $filteredHtml;
 $html .= '</body></html>';

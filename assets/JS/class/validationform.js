@@ -79,8 +79,6 @@ export class FormValidator {
 
     // Ajouter l'attribut data-i18n pour la traduction
     feedbackElement.setAttribute('data-i18n', messageKey);
-    
-    // Utiliser directement la traduction si disponible
     feedbackElement.textContent = this.translationManager.getTranslation(messageKey);
   }
 

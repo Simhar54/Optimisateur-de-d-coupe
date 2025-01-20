@@ -28,5 +28,7 @@
     "bar_word": "Barre",
     "work_order": "OF",
     "error_numeric_only": "Veuillez entrer uniquement des chiffres",
-    "error_alphanumeric": "Veuillez entrer uniquement des chiffres et des lettres"
+    "error_alphanumeric": "Veuillez entrer uniquement des chiffres et des lettres",
+    "bar_length": "Longueur de barre",
+    "error_invalid_length": "La longueur est invalide"
 }

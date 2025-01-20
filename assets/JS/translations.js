@@ -41,7 +41,6 @@ export class TranslationManager {
     }
 
     updatePageContent() {
-        // Mettre à jour tous les éléments avec l'attribut data-i18n
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
             if (this.translations[key]) {

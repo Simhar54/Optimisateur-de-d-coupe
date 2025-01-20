@@ -17,7 +17,7 @@
     "totalBarLength": "Total bar length",
     "totalBarQt": "Number of bar",
     "optimize": "Optimize",
-    "modify": "Modify",
+    "modify": "Edit",
     "delete": "Delete",
     "resultOptimize": "Results of the Optimization",
     "printPDF": "Print in PDF",
@@ -28,5 +28,7 @@
     "bar_word": "Bar",
     "work_order": "WO",
     "error_numeric_only": "Please enter numbers only",
-    "error_alphanumeric": "Please enter only letters and numbers"
+    "error_alphanumeric": "Please enter only letters and numbers",
+    "bar_length": "Bar length",
+    "error_invalid_length": "Invalid length"
 }

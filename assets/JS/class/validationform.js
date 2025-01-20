@@ -5,6 +5,11 @@
 export class FormValidator {
   constructor() {
     this.errors = [];
+    // Messages d'erreur avec clés de traduction
+    this.errorMessages = {
+      numeric: 'error_numeric_only',      // "Veuillez entrer uniquement des chiffres"
+      alphanumeric: 'error_alphanumeric'  // "Veuillez entrer uniquement des chiffres et des lettres"
+    };
   }
 
   /**
@@ -17,7 +22,7 @@ export class FormValidator {
       this._setValid(input);
       return true;
     } else {
-      this._setInvalid(input, "Veuillez entrer uniquement des chiffres.");
+      this._setInvalid(input, this.errorMessages.numeric);
       return false;
     }
   }
@@ -32,7 +37,7 @@ export class FormValidator {
       this._setValid(input);
       return true;
     } else {
-      this._setInvalid(input, "Veuillez entrer uniquement des chiffres et des lettres.");
+      this._setInvalid(input, this.errorMessages.alphanumeric);
       return false;
     }
   }
@@ -47,17 +52,17 @@ export class FormValidator {
     input.classList.add("is-valid");
     const feedbackElement = input.nextElementSibling;
     if (feedbackElement && feedbackElement.classList.contains("invalid-feedback")) {
-      feedbackElement.textContent = ""; // Efface le message d'erreur précédent
+      feedbackElement.textContent = "";
     }
   }
 
   /**
    * Marque l'entrée comme invalide et affiche un message d'erreur.
    * @param {HTMLInputElement} input - L'élément de formulaire à marquer comme invalide.
-   * @param {string} message - Le message d'erreur à afficher.
+   * @param {string} messageKey - La clé du message d'erreur à afficher.
    * @private
    */
-  _setInvalid(input, message) {
+  _setInvalid(input, messageKey) {
     input.classList.add("is-invalid");
     input.classList.remove("is-valid");
     let feedbackElement = input.nextElementSibling;
@@ -69,8 +74,9 @@ export class FormValidator {
       input.parentNode.insertBefore(feedbackElement, input.nextSibling);
     }
 
-    // Met à jour ou ajoute le message d'erreur
-    feedbackElement.textContent = message;
+    // Ajouter l'attribut data-i18n pour la traduction
+    feedbackElement.setAttribute('data-i18n', messageKey);
+    feedbackElement.textContent = messageKey; // Texte par défaut en attendant la traduction
   }
 
   /**

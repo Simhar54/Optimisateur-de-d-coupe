@@ -36,7 +36,7 @@ class DynamicFitOptimizer {
         $bins = $this->initializeBins($barLengths);
 
         foreach ($cutRequests as $request) {
-            $this->fitCut($bins, $request);
+            $this->fitCut($bins, $request, $barLengths);
         }
 
         // Filtre et retourne uniquement les barres qui ont été utilisées pour des coupes ou qui sont restées intactes.
@@ -47,10 +47,11 @@ class DynamicFitOptimizer {
 
     /**
      * Fonction pour ajuster la coupe dans la meilleure barre possible.
-     * @param array $bins Référence au tableau des barres disponibles.
-     * @param object $request Demande de coupe spécifiant la longueur nécessaire et autres détails.
+     * @param array &$bins Référence au tableau des barres disponibles
+     * @param object $request Demande de coupe
+     * @param array &$barLengths Liste des barres disponibles
      */
-    private function fitCut(&$bins, $request) {
+    private function fitCut(&$bins, $request, &$barLengths) {
         $bestFitIndex = null;
         $bestFitRemainder = PHP_INT_MAX;
         foreach ($bins as $index => &$bin) {

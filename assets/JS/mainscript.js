@@ -4,6 +4,7 @@ import { BarLengthManager } from './class/barLengthManager.js';
 import { OptimizationResultsDisplay } from './class/displayOptimizationResults.js';
 import { CutVerifier } from './class/cutVerifier.js';
 import { FormInteractionManager } from './class/formInteractionManager.js';
+import { TranslationManager } from './translations.js';
 
 /**
  * Initialisation des instances des classes nécessaires pour l'application.
@@ -30,3 +31,11 @@ const formInteractionManager = new FormInteractionManager(
   cutVerifier,
   optimizationResultsDisplay
 );
+
+const translationManager = new TranslationManager();
+translationManager.init();
+
+// Écouteur pour le changement de langue
+document.getElementById('languageSelector').addEventListener('change', (e) => {
+    translationManager.changeLang(e.target.value);
+});

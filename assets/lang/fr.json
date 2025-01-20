@@ -33,5 +33,7 @@
     "error_invalid_length": "La longueur est invalide",
     "bar_length_label": "Longueur de barre",
     "save_button": "Sauvegarder",
-    "cut_length_label": "Longueur"
+    "cut_length_label": "Longueur",
+    "no_bar_available_error": "Aucune barre disponible ne peut accueillir la coupe de longueur {length} en tenant compte de la largeur de la lame de scie et de la chute minimale.",
+    "insufficient_total_length_error": "La somme des longueurs des barres disponibles ({barLength}) est insuffisante pour accueillir toutes les coupes ({cutLength}) en tenant compte de la largeur de la lame de scie et de la chute minimale."
 }

@@ -33,5 +33,7 @@
     "error_invalid_length": "Invalid length",
     "bar_length_label": "Bar length",
     "save_button": "Save",
-    "cut_length_label": "Length"
+    "cut_length_label": "Length",
+    "no_bar_available_error": "No available bar can accommodate the cut of length {length} taking into account the saw blade width and minimum drop length.",
+    "insufficient_total_length_error": "The sum of available bar lengths ({barLength}) is insufficient to accommodate all cuts ({cutLength}) taking into account the saw blade width and minimum drop length."
 }

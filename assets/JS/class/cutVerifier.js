@@ -3,6 +3,8 @@
  * Vérifie que les longueurs de coupe peuvent être réalisées avec les barres disponibles
  * en tenant compte de la largeur de la lame de scie et de la longueur minimale de chute.
  */
+import { TranslationManager } from '../translations.js';
+
 export class CutVerifier {
   /**
    * Constructeur de la classe CutVerifier
@@ -16,6 +18,7 @@ export class CutVerifier {
     this.minDropLength = parseInt(document.getElementById("barDrop").value);
     // Récupère la largeur de la lame de scie depuis l'élément HTML avec l'ID "sawBladeSize"
     this.sawBladeSize = parseInt(document.getElementById("sawBladeSize").value);
+    this.translationManager = new TranslationManager();
   }
 
   /**
@@ -42,7 +45,7 @@ export class CutVerifier {
       if (!canAccommodateCut) {
         return {
           valid: false,
-          message: `Aucune barre disponible ne peut accueillir la coupe de longueur ${cut} en tenant compte de la largeur de la lame de scie et de la chute minimale.`
+          message: this.translationManager.getTranslation('no_bar_available_error').replace('{length}', cut)
         };
       }
     }
@@ -55,7 +58,9 @@ export class CutVerifier {
     if (totalBarLength < totalCutLength) {
       return {
         valid: false,
-        message: `La somme des longueurs des barres disponibles (${totalBarLength}) est insuffisante pour accueillir toutes les coupes (${totalCutLength}) en tenant compte de la largeur de la lame de scie et de la chute minimale.`
+        message: this.translationManager.getTranslation('insufficient_total_length_error')
+          .replace('{barLength}', totalBarLength)
+          .replace('{cutLength}', totalCutLength)
       };
     }
 

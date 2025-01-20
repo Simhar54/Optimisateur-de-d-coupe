@@ -2,9 +2,12 @@
  * Classe pour valider les formulaires.
  * Fournit des méthodes pour valider les entrées numériques et alphanumériques.
  */
+import { TranslationManager } from '../translations.js';
+
 export class FormValidator {
   constructor() {
     this.errors = [];
+    this.translationManager = new TranslationManager();
     // Messages d'erreur avec clés de traduction
     this.errorMessages = {
       numeric: 'error_numeric_only',      // "Veuillez entrer uniquement des chiffres"
@@ -76,7 +79,9 @@ export class FormValidator {
 
     // Ajouter l'attribut data-i18n pour la traduction
     feedbackElement.setAttribute('data-i18n', messageKey);
-    feedbackElement.textContent = messageKey; // Texte par défaut en attendant la traduction
+    
+    // Utiliser directement la traduction si disponible
+    feedbackElement.textContent = this.translationManager.getTranslation(messageKey);
   }
 
   /**

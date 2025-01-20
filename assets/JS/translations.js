@@ -1,8 +1,15 @@
 export class TranslationManager {
+    static instance = null;
+
     constructor() {
+        if (TranslationManager.instance) {
+            return TranslationManager.instance;
+        }
+        TranslationManager.instance = this;
+        
         this.currentLang = localStorage.getItem('preferredLanguage') || 'fr';
         this.translations = {};
-        this.updateLanguageSelector();
+        this.isInitialized = false;
         
         // Ajouter un écouteur pour la génération du tableau
         document.addEventListener('tableGenerated', () => {
@@ -11,15 +18,20 @@ export class TranslationManager {
     }
 
     async init() {
-        // Charger les traductions
         try {
             const response = await fetch(`assets/lang/${this.currentLang}.json`);
             this.translations = await response.json();
+            this.isInitialized = true;
             this.updatePageContent();
             this.updateLanguageSelector();
         } catch (error) {
             console.error('Erreur lors du chargement des traductions:', error);
         }
+    }
+
+    // Obtenir une traduction
+    getTranslation(key) {
+        return this.translations[key] || key;
     }
 
     async changeLang(lang) {

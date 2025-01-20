@@ -9,6 +9,9 @@ import { TranslationManager } from './translations.js';
 /**
  * Initialisation des instances des classes nécessaires pour l'application.
  */
+const translationManager = new TranslationManager();
+await translationManager.init();
+
 const validator = new FormValidator();
 const cutLengthManager = new CutLengthManager();
 const barLengthManager = new BarLengthManager();
@@ -31,9 +34,6 @@ const formInteractionManager = new FormInteractionManager(
   cutVerifier,
   optimizationResultsDisplay
 );
-
-const translationManager = new TranslationManager();
-translationManager.init();
 
 // Écouteur pour le changement de langue
 document.getElementById('languageSelector').addEventListener('change', (e) => {

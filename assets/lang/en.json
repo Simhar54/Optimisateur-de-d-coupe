@@ -30,5 +30,8 @@
     "error_numeric_only": "Please enter numbers only",
     "error_alphanumeric": "Please enter only letters and numbers",
     "bar_length": "Bar length",
-    "error_invalid_length": "Invalid length"
+    "error_invalid_length": "Invalid length",
+    "bar_length_label": "Bar length",
+    "save_button": "Save",
+    "cut_length_label": "Length"
 }

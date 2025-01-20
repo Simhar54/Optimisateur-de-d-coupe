@@ -1,3 +1,5 @@
+import { TranslationManager } from '../translations.js';
+
 /**
  * Classe pour gérer les longueurs de coupe et les OFs associés.
  * Permet d'ajouter, afficher, modifier et supprimer des longueurs de coupe et des OFs.
@@ -6,6 +8,7 @@ export class CutLengthManager {
   constructor() {
     this.cutLengths = []; // Stocke les longueurs et les OF ajoutés
     this._setupContextMenuEventListeners(); // Appel de la méthode privée pour configurer les écouteurs d'événements du menu contextuel
+    this.translationManager = new TranslationManager();
   }
 
   /**
@@ -54,12 +57,20 @@ export class CutLengthManager {
       entryDiv.classList.add("cut-length-entry"); // Classe pour le styling de base
 
       const lengthDiv = document.createElement("div");
-      lengthDiv.textContent = `Longueur: ${entry.cutLength}`;
-      lengthDiv.classList.add("cut-length"); // Classe pour styling spécifique
+      const lengthSpan = document.createElement('span');
+      lengthSpan.setAttribute('data-i18n', 'cut_length_label');
+      lengthSpan.textContent = this.translationManager.getTranslation('cut_length_label');
+      lengthDiv.appendChild(lengthSpan);
+      lengthDiv.appendChild(document.createTextNode(`: ${entry.cutLength}`));
+      lengthDiv.classList.add("cut-length");
 
       const ofDiv = document.createElement("div");
-      ofDiv.textContent = `OF: ${entry.of}`;
-      ofDiv.classList.add("cut-of"); // Classe pour styling spécifique
+      const ofSpan = document.createElement('span');
+      ofSpan.setAttribute('data-i18n', 'work_order');
+      ofSpan.textContent = this.translationManager.getTranslation('work_order');
+      ofDiv.appendChild(ofSpan);
+      ofDiv.appendChild(document.createTextNode(`: ${entry.of}`));
+      ofDiv.classList.add("cut-of");
 
       // Structure pour aligner le contenu
       entryDiv.appendChild(lengthDiv);
@@ -193,7 +204,8 @@ export class CutLengthManager {
       lengthInput.focus();
 
       const saveButton = document.createElement("button");
-      saveButton.textContent = "Sauvegarder";
+      saveButton.setAttribute('data-i18n', 'save_button');
+      saveButton.textContent = this.translationManager.getTranslation('save_button');
       saveButton.addEventListener("click", () => {
         const newLength = lengthInput.value;
         const newOf = ofInput.value;
@@ -239,8 +251,6 @@ export class CutLengthManager {
       }
     });
   }
-
-
 
   /**
    * Sauvegarde les modifications de la longueur de coupe et du OF.

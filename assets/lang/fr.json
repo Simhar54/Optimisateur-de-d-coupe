@@ -30,5 +30,8 @@
     "error_numeric_only": "Veuillez entrer uniquement des chiffres",
     "error_alphanumeric": "Veuillez entrer uniquement des chiffres et des lettres",
     "bar_length": "Longueur de barre",
-    "error_invalid_length": "La longueur est invalide"
+    "error_invalid_length": "La longueur est invalide",
+    "bar_length_label": "Longueur de barre",
+    "save_button": "Sauvegarder",
+    "cut_length_label": "Longueur"
 }

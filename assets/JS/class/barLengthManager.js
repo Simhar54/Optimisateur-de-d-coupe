@@ -2,10 +2,13 @@
  * Classe pour gérer les longueurs de barres.
  * Permet d'ajouter, afficher, modifier et supprimer des longueurs de barres.
  */
+import { TranslationManager } from '../translations.js';
+
 export class BarLengthManager {
   constructor() {
     this.barLengths = []; // Stocke les longueurs des barres avec un identifiant unique
     this.entryId = 0; // Un simple compteur pour générer des identifiants uniques
+    this.translationManager = new TranslationManager();
     this._setupEventListeners();
   }
 
@@ -47,9 +50,7 @@ export class BarLengthManager {
     displayElement.innerHTML = "";
 
     this.barLengths.forEach((entry) => {
-      const entryDiv = document.createElement("div");
-      entryDiv.classList.add("bar-length-entry");
-      entryDiv.textContent = `Longueur de barre: ${entry.length}`;
+      const entryDiv = this._createEntryElement(entry);
       entryDiv.dataset.entryId = entry.id; // Stocke l'identifiant unique comme attribut de données
       displayElement.appendChild(entryDiv);
       this.totalBarLength();
@@ -119,7 +120,21 @@ export class BarLengthManager {
     });
   }
 
-  
+  _createEntryElement(entry) {
+    const entryDiv = document.createElement("div");
+    entryDiv.className = "entry";
+    
+    // Créer un span pour le texte traduit
+    const labelSpan = document.createElement('span');
+    labelSpan.setAttribute('data-i18n', 'bar_length_label');
+    labelSpan.textContent = this.translationManager.getTranslation('bar_length_label');
+    
+    // Assembler le texte
+    entryDiv.appendChild(labelSpan);
+    entryDiv.appendChild(document.createTextNode(`: ${entry.length}`));
+
+    return entryDiv;
+  }
 
   /**
    * Initialise les écouteurs d'événements pour le menu contextuel.
@@ -163,7 +178,8 @@ export class BarLengthManager {
       barLengthInput.focus(); // Met le focus sur le champ pour la modification immédiate
 
       const saveButton = document.createElement("button");
-      saveButton.textContent = "Sauvegarder";
+      saveButton.setAttribute('data-i18n', 'save_button');
+      saveButton.textContent = this.translationManager.getTranslation('save_button');
       saveButton.addEventListener("click", () => {
         const newLength = barLengthInput.value;
         const alertDiv = document.getElementById("alertDiv");
@@ -235,6 +251,4 @@ export class BarLengthManager {
       console.log("Erreur: La nouvelle longueur est invalide.");
     }
   }
-
- 
 }

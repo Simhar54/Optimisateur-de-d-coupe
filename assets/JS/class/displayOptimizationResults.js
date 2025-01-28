@@ -35,6 +35,12 @@ export class OptimizationResultsDisplay {
     const resultsContainer = document.getElementById(this.containerId);
     resultsContainer.innerHTML = ""; // Reset du conteneur
 
+    // Création d'un div pour le scroll
+    const scrollableDiv = document.createElement('div');
+    scrollableDiv.style.maxHeight = '60vh'; // 60% de la hauteur de la fenêtre
+    scrollableDiv.style.overflowY = 'auto'; // Permet le défilement vertical
+    scrollableDiv.style.overflowX = 'hidden'; // Cache le défilement horizontal
+
     // Création structure de base du tableau
     const table = document.createElement("table");
     table.className = "table table-striped";
@@ -113,9 +119,13 @@ export class OptimizationResultsDisplay {
       remainderCell.className = "align-bottom border";
     });
 
-    // Finalisation et affichage
-    resultsContainer.appendChild(table);
-    document.getElementById(this.resultOptimizeId).classList.remove("d-none");
+    // Ajouter le tableau au div scrollable au lieu du conteneur directement
+    scrollableDiv.appendChild(table);
+    resultsContainer.appendChild(scrollableDiv);
+
+    // Afficher la modal
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    resultModal.show();
 
     // Déclenchement de l'événement pour la mise à jour des traductions
     document.dispatchEvent(new CustomEvent('tableGenerated'));

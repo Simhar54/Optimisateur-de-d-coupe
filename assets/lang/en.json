@@ -37,5 +37,6 @@
     "no_bar_available_error": "No available bar can accommodate the cut of length {length} taking into account the saw blade width and minimum drop length.",
     "insufficient_total_length_error": "The sum of available bar lengths ({barLength}) is insufficient to accommodate all cuts ({cutLength}) taking into account the saw blade width and minimum drop length.",
     "pdf_title": "Cutting Optimization Results",
-    "language": "Language"
+    "language": "Language",
+    "close": "Close"
 }

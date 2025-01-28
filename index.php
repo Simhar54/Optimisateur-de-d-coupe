@@ -157,15 +157,28 @@
             </div>
         </div>
         <section class="col col-md-8 col-12 text-center mx-auto mb-3">
-            <div id="resultOptimize" class="d-none text-center">
-                <h2 data-i18n="resultOptimize">Résultats de l'Optimisation</h2>
-                <div id="optimizationDetails"></div>
-                <form id="pdfForm" method="post" action="API/generate_pdf.api.php">
-                    <input type="hidden" name="tableHtml" id="tableHtml">
-                    <input type="hidden" name="pdfTitle" id="pdfTitle">
-                    <span class="d-none" data-i18n="pdf_title">Résultats de l'Optimisation de Découpe</span>
-                    <button type="submit" class="btn btn-primary" id="generatePDFButton" data-i18n="printPDF">Imprimer en PDF</button>
-                </form>
+            <!-- La modal -->
+            <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="resultModalLabel" data-i18n="resultOptimize">Résultats de l'Optimisation</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="optimizationDetails"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <form id="pdfForm" method="post" action="API/generate_pdf.api.php">
+                                <input type="hidden" name="tableHtml" id="tableHtml">
+                                <input type="hidden" name="pdfTitle" id="pdfTitle">
+                                <span class="d-none" data-i18n="pdf_title">Résultats de l'Optimisation de Découpe</span>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="close">Fermer</button>
+                                <button type="submit" class="btn btn-primary" id="generatePDFButton" data-i18n="printPDF">Imprimer en PDF</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 

@@ -26,6 +26,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        <span data-i18n="language" class="my-auto mx-2">Langue</span>
                         <li class="nav-item">
                             <select id="languageSelector" class="form-select">
                                 <option value="fr" data-i18n="fr">Français</option>
@@ -161,6 +162,8 @@
                 <div id="optimizationDetails"></div>
                 <form id="pdfForm" method="post" action="API/generate_pdf.api.php">
                     <input type="hidden" name="tableHtml" id="tableHtml">
+                    <input type="hidden" name="pdfTitle" id="pdfTitle">
+                    <span class="d-none" data-i18n="pdf_title">Résultats de l'Optimisation de Découpe</span>
                     <button type="submit" class="btn btn-primary" id="generatePDFButton" data-i18n="printPDF">Imprimer en PDF</button>
                 </form>
             </div>
@@ -186,7 +189,7 @@
 
 
 
-    <script type="module" src="assets/JS/mainscript.js"></script>
+    <script type="module" src="assets/JS/mainscript.v1.1.js"></script>
     <script src="assets/JS/bootstrap.bundle.min.js"></script>
 </body>
 

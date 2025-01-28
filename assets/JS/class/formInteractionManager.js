@@ -223,12 +223,13 @@ export class FormInteractionManager {
   /**
    * Gère l'impression en PDF des résultats d'optimisation.
    */
-
   _handlePrintInPdf() {
     const tableHtml = document.getElementById("optimizationDetails").innerHTML;
+    const title = document.querySelector('[data-i18n="resultOptimize"]').textContent;
+    
     document.getElementById("tableHtml").value = tableHtml;
+    document.getElementById("pdfTitle").value = title;
     document.getElementById("pdfForm").submit();
-    console.log(tableHtml);
   }
   // Vous pouvez ajouter ici des méthodes supplémentaires pour gérer d'autres interactions
 }

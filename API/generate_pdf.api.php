@@ -51,7 +51,7 @@ $filteredHtml = str_replace("<th", "<th style='border: 1px solid black; padding:
 
 // Ajout de la date et l'heure au titre du PDF
 $date = date("d-m-Y H:i:s");
-$title = "Résultats de l'Optimisation - $date";
+$title = $_POST['pdfTitle'] ?? 'Résultats de l\'Optimisation';
 
 // Création d'une instance de Mpdf
 $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp', 'mode' => 'UTF-8']);
